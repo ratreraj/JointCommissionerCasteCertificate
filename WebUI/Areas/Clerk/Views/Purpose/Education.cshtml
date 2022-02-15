@@ -1,0 +1,80 @@
+﻿@model WebUI.Areas.Clerk.Models.EducationModel
+
+@{
+    ViewData["Title"] = "Education";
+}
+
+<h1>Education</h1>
+
+<h4>EducationModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Education">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ApplicationId" class="control-label"></label>
+                <input asp-for="ApplicationId" class="form-control" />
+                <span asp-validation-for="ApplicationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationRecivedDate" class="control-label"></label>
+                <input asp-for="ApplicationRecivedDate" class="form-control" />
+                <span asp-validation-for="ApplicationRecivedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationName" class="control-label"></label>
+                <input asp-for="ApplicationName" class="form-control" />
+                <span asp-validation-for="ApplicationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseId" class="control-label"></label>
+                <input asp-for="CaseId" class="form-control" />
+                <span asp-validation-for="CaseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Village" class="control-label"></label>
+                <input asp-for="Village" class="form-control" />
+                <span asp-validation-for="Village" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Taluka" class="control-label"></label>
+                <input asp-for="Taluka" class="form-control" />
+                <span asp-validation-for="Taluka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="District" class="control-label"></label>
+                <input asp-for="District" class="form-control" />
+                <span asp-validation-for="District" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CasteCertificateDate" class="control-label"></label>
+                <input asp-for="CasteCertificateDate" class="form-control" />
+                <span asp-validation-for="CasteCertificateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CasteCertificateNumber" class="control-label"></label>
+                <input asp-for="CasteCertificateNumber" class="form-control" />
+                <span asp-validation-for="CasteCertificateNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CasteCertificateIssuingAuthority" class="control-label"></label>
+                <input asp-for="CasteCertificateIssuingAuthority" class="form-control" />
+                <span asp-validation-for="CasteCertificateIssuingAuthority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EducationType" class="control-label"></label>
+                <input asp-for="EducationType" class="form-control" />
+                <span asp-validation-for="EducationType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

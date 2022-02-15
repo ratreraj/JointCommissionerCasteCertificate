@@ -8,7 +8,7 @@ namespace WebUI.Models
 {
     public class LoginModel
     {
-        [Required(ErrorMessage = "Please enter email id"), DataType(DataType.EmailAddress, ErrorMessage = "invalid email id")]
+        [Required(ErrorMessage = "Please enter email id")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Please enter password"),DataType(DataType.Password,ErrorMessage ="invlid password as per the policy")]
         public string Password { get; set; }

@@ -6,21 +6,21 @@ using WebUI.Models;
 
 namespace WebUI.Controllers
 {
-    public class AccountController : Controller
+    public class LoginController : Controller
     {
         private readonly IAuthenticationService _authenticationService;
-        public AccountController(IAuthenticationService authenticationService)
+        public LoginController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
         }
-        public IActionResult Login()
+        public IActionResult SignIn()
         {
             return View();
         }
-
-        public IActionResult Login(LoginModel model)
+        [HttpPost]
+        public IActionResult SignIn(LoginModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
 
                 User user = _authenticationService.AuthenticateUser(model.UserName, model.Password);
@@ -31,21 +31,21 @@ namespace WebUI.Controllers
                     {
                         return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                     }
-                    else if (user.Roles.Contains("User"))
+                    else if (user.Roles.Contains("Clerk"))
                     {
-                        return RedirectToAction("Index", "Dashboard", new { area = "User" });
+                        return RedirectToAction("Index", "Dashboard", new { area = "Clerk" });
 
                     }
-                    else if (user.Roles.Contains("User"))
-                    {
-                        return RedirectToAction("Index", "Dashboard", new { area = "User" });
+                    //else if (user.Roles.Contains("User"))
+                    //{
+                    //    return RedirectToAction("Index", "Dashboard", new { area = "User" });
 
-                    }
-                    else if (user.Roles.Contains("User"))
-                    {
-                        return RedirectToAction("Index", "Dashboard", new { area = "User" });
+                    //}
+                    //else if (user.Roles.Contains("User"))
+                    //{
+                    //    return RedirectToAction("Index", "Dashboard", new { area = "User" });
 
-                    }
+                    //}
                     
                 }
 

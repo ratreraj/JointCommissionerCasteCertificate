@@ -39,12 +39,12 @@ namespace Services.Implementations
 
         }
 
-        public bool CreateUser(User user, string Password)
+        public bool CreateUser(User user, string Password,string role)
         {
             var result = _userManager.CreateAsync(user, Password).Result;
             if (result.Succeeded)
             {
-                string role = "User";
+               // string role = "Admin";
                 var res = _userManager.AddToRoleAsync(user, role).Result;
                 if (res.Succeeded)
                 {

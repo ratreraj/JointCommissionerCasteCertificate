@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WebUI.Areas.Admin.Controllers
+namespace WebUI.Areas.Clerk.Controllers
 {
     public class DashboardController : BaseController
     {
