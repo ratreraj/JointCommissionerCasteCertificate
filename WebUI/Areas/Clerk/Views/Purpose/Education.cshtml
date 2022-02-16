@@ -6,8 +6,6 @@
 
 <h1>Education</h1>
 
-<h4>EducationModel</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Education">
@@ -29,22 +27,31 @@
             </div>
             <div class="form-group">
                 <label asp-for="CaseId" class="control-label"></label>
+
                 <input asp-for="CaseId" class="form-control" />
                 <span asp-validation-for="CaseId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Village" class="control-label"></label>
-                <input asp-for="Village" class="form-control" />
+                <select asp-for="Village" class="form-control">
+                    <option value="">Please select Village</option>
+                </select>
+
                 <span asp-validation-for="Village" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Taluka" class="control-label"></label>
-                <input asp-for="Taluka" class="form-control" />
+                <select asp-for="Taluka" class="form-control">
+                    <option value="">Please select Taluka</option>
+                </select>
+
                 <span asp-validation-for="Taluka" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="District" class="control-label"></label>
-                <input asp-for="District" class="form-control" />
+                <select asp-for="District" class="form-control">
+                    <option value="">Please select District</option>
+                </select>
                 <span asp-validation-for="District" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -64,7 +71,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="EducationType" class="control-label"></label>
-                <input asp-for="EducationType" class="form-control" />
+
+                <select asp-for="EducationType" class="form-control">
+                    <option value="">Please select EducationType</option>
+                </select>
                 <span asp-validation-for="EducationType" class="text-danger"></span>
             </div>
             <div class="form-group">
