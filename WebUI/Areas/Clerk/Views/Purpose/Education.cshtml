@@ -6,6 +6,8 @@
 
 <h1>Education</h1>
 
+<h4>EducationModel</h4>
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Education">
@@ -27,32 +29,30 @@
             </div>
             <div class="form-group">
                 <label asp-for="CaseId" class="control-label"></label>
-
                 <input asp-for="CaseId" class="form-control" />
                 <span asp-validation-for="CaseId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Village" class="control-label"></label>
-                <select asp-for="Village" class="form-control">
-                    <option value="">Please select Village</option>
-                </select>
 
-                <span asp-validation-for="Village" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Taluka" class="control-label"></label>
-                <select asp-for="Taluka" class="form-control">
-                    <option value="">Please select Taluka</option>
-                </select>
-
-                <span asp-validation-for="Taluka" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="District" class="control-label"></label>
-                <select asp-for="District" class="form-control">
+                <select asp-for="District" class="form-select" asp-items="@ViewBag.District">
                     <option value="">Please select District</option>
                 </select>
                 <span asp-validation-for="District" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Taluka" class="control-label"></label>
+                <select asp-for="Taluka" class="form-select">
+                    <option value="">Please select Taluka</option>
+                </select>
+                <span asp-validation-for="Taluka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Village" class="control-label"></label>
+                <select asp-for="Village" class="form-select">
+                    <option value="">Please select Village</option>
+                </select>
+                <span asp-validation-for="Village" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CasteCertificateDate" class="control-label"></label>
@@ -71,11 +71,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="EducationType" class="control-label"></label>
-
-                <select asp-for="EducationType" class="form-control">
+                <select asp-for="EducationType" class="form-select">
                     <option value="">Please select EducationType</option>
                 </select>
                 <span asp-validation-for="EducationType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurpuseType" class="control-label"></label>
+               
+                <select asp-for="PurpuseType" class="form-select" asp-items="@ViewBag.PurpuseType">
+                    <option value="">Please select PurpuseType</option>
+                </select>
+                <span asp-validation-for="PurpuseType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+
+                <select asp-for="Status" class="form-select" asp-items="@ViewBag.StatusMaster">
+                    <option value="">Please select Status</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -84,7 +99,71 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+@*
+    <partial name="_ValidationScriptsPartial" />*@
+@section Scripts {
+<script>
+
+    $(document).ready(function () {
+            var items = "<option value=''>Please Select Taluka</option>";
+            $('#Taluka').html(items);
+            $('#District').change(function () {
+               BindTaluka();
+            });
+
+             $('#Taluka').change(function () {
+               BindVillages();
+            });
+            //var UserId = $('#UserId').val();
+            //if (UserId != null)
+            //{
+            //    console.log(UserId);
+            //    BindCity();
+
+            //}
+        });
+
+         function BindTaluka() {
+            var url = '@Url.Content("~/")' + "Clerk/Purpose/GetTalukaList";
+                var ddlsource = "#District";
+                $.post(url, { DistrictId: $(ddlsource).val() }, function (data) {
+                    var items = '';
+                    $("#Taluka").empty();
+                    items += "<option value=''>Please Select Taluka</option>";
+                    $.each(data, function (i, Taluka) {
+                     items += "<option value='" + Taluka.value + "'>" + Taluka.text + "</option>";
+                    });
+                    $('#Taluka').html(items);
+
+                    //
+                    //var _cityval = @(ViewBag.City!=null? Html.Raw(ViewBag.City) : Html.Raw("undefined"));
+                    //if (_cityval != null) {
+                    //    $('#City').val(_cityval);
+                    //}
+
+                });
+                }
+
+           function BindVillages() {
+            var url = '@Url.Content("~/")' + "Clerk/Purpose/GetVillagesList";
+                var ddlsource = "#Taluka";
+                $.post(url, { TalukaId: $(ddlsource).val() }, function (data) {
+                    var items = '';
+                    $("#Village").empty();
+                    items += "<option value=''>Please Select Village</option>";
+                    $.each(data, function (i, Village) {
+                     items += "<option value='" + Village.value + "'>" + Village.text + "</option>";
+                    });
+                    $('#Village').html(items);
+
+                    //
+                    //var _cityval = @(ViewBag.City!=null? Html.Raw(ViewBag.City) : Html.Raw("undefined"));
+                    //if (_cityval != null) {
+                    //    $('#City').val(_cityval);
+                    //}
+
+                });
+                }
+</script>
+}

@@ -9,6 +9,7 @@ namespace Repository.Interfaces
     public interface IRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> GetAll();
+
         TEntity FindById(object Id);
         void Add(TEntity entity);
         void Update(TEntity entity);

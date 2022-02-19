@@ -34,5 +34,12 @@ namespace Entities
         public string CasteCertificateIssuingAuthority { get; set; }
         [Column(TypeName = "Varchar(100)")]
         public string EducationType { get; set; }
+        [Column(TypeName = "Varchar(100)")]
+        public string PurpuseType { get; set; }
+
+        [Column(TypeName = "int")]
+        public int EntryBy { get; set; }
+        [Column(TypeName = "DateTime")]
+        public DateTime EntryDate{ get; set; }
     }
 }

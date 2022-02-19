@@ -26,6 +26,10 @@ namespace WebUI.Areas.Clerk.Models
         public string CasteCertificateIssuingAuthority { get; set; }
         [Required(ErrorMessage = "Please enter Application EducationType")]
         public string EducationType { get; set; }
+        [Required(ErrorMessage = "Please enter Application PurpuseType")]
+        public string PurpuseType { get; set; }
+        [Required(ErrorMessage = "Please enter Application Status")]
+        public string Status { get; set; }
 
     }
 }

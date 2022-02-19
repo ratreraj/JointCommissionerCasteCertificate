@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Implementations
 {
-    internal class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected DbContext _db;
         public Repository(DbContext dbContext)
@@ -53,5 +53,7 @@ namespace Repository.Implementations
         {
             _db.Set<TEntity>().Update(entity);
         }
+
+       
     }
 }
