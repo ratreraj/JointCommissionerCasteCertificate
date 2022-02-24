@@ -15,6 +15,7 @@ namespace WebUI.Configurations
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<IMasterServices, MasterServices>();
+            services.AddScoped<IEducationServices, EducationServices>();
 
         }
     }

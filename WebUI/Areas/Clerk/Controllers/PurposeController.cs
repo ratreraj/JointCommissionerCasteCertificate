@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DomainModel;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Services;
@@ -10,10 +11,12 @@ namespace WebUI.Areas.Clerk.Controllers
     public class PurposeController : BaseController
     {
         private readonly IMasterServices _masterServices;
-        public PurposeController(IMasterServices masterServices)
+        private readonly IEducationServices _educationServices;
+        public PurposeController(IMasterServices masterServices, IEducationServices educationServices)
         {
 
             _masterServices=masterServices;
+            _educationServices=educationServices;
         }
         public IActionResult Index()
         {
@@ -27,6 +30,25 @@ namespace WebUI.Areas.Clerk.Controllers
             return View();
         }
 
+        public IActionResult Edit(string ApplicationId)
+        {
+            Onload();
+            EducationModel educationModel = _educationServices.GetEducationById(ApplicationId);
+            return View("Education", educationModel);
+        }
+
+        [HttpPost]
+        public IActionResult Education(EducationModel model)
+        {
+            int result = 0;
+            if (ModelState.IsValid)
+            {
+                result= _educationServices.EducationSave(model, 2);
+            }
+
+
+            return View();
+        }
 
 
 
@@ -36,8 +58,10 @@ namespace WebUI.Areas.Clerk.Controllers
             ViewBag.StatusMaster = new SelectList(_masterServices.GetStatusMaster(), "Status", "Description");
             ViewBag.District = new SelectList(_masterServices.GetDistricts(), "DistrictID", "DistictName");
             ViewBag.PurpuseType = new SelectList(_masterServices.GetDDLMaster("PURPOSETYPE"), "ValueFields", "DisplayFields");
+            ViewBag.EducationType = new SelectList(_masterServices.GetDDLMaster("EDUCATION"), "ValueFields", "DisplayFields");
             // ViewBag.Genders = new List<string>() { "Male", "Female" };
             ViewBag.City = null;
+            ViewBag.ApplicationId = _educationServices.GetApplicationId();
         }
 
 

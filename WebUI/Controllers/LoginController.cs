@@ -36,17 +36,17 @@ namespace WebUI.Controllers
                         return RedirectToAction("Index", "Dashboard", new { area = "Clerk" });
 
                     }
+                    else if (user.Roles.Contains("Dysp"))
+                    {
+                        return RedirectToAction("Index", "Dashboard", new { area = "Dysp" });
+
+                    }
                     //else if (user.Roles.Contains("User"))
                     //{
                     //    return RedirectToAction("Index", "Dashboard", new { area = "User" });
 
                     //}
-                    //else if (user.Roles.Contains("User"))
-                    //{
-                    //    return RedirectToAction("Index", "Dashboard", new { area = "User" });
 
-                    //}
-                    
                 }
 
             }

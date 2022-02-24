@@ -34,7 +34,11 @@ namespace Services.Configurations
             services.AddTransient<IRepository<Districts>, Repository<Districts>>();
             services.AddTransient<IRepository<Talukas>, Repository<Talukas>>();
             services.AddTransient<IRepository<Villages>, Repository<Villages>>();
-            //  services.AddScoped<IMasterServices, MasterServices>();
+            // services.AddTransient<IMasterServices, MasterServices>();
+            services.AddTransient<IRepository<Education>, Repository<Education>>();
+            services.AddTransient<IRepository<ApplicationStatus>, Repository<ApplicationStatus>>();
+            //services.AddScoped<AppDbContext>();
+
 
         }
     }

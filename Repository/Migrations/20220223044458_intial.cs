@@ -8,6 +8,23 @@ namespace Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "applicationStatuses",
+                columns: table => new
+                {
+                    EntityTranstionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    Remark = table.Column<string>(type: "Varchar(500)", nullable: true),
+                    EntryBy = table.Column<int>(type: "int", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_applicationStatuses", x => x.EntityTranstionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -51,10 +68,41 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "dDLMasters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ValueFields = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DisplayFields = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Categroy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryBy = table.Column<int>(type: "int", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_dDLMasters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "districts",
+                columns: table => new
+                {
+                    DistrictID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DistictName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_districts", x => x.DistrictID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "educations",
                 columns: table => new
                 {
-                    ApplicationId = table.Column<int>(type: "int", nullable: false)
+                    AppId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EntityTranstionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicationRecivedDate = table.Column<DateTime>(type: "DateTime", nullable: false),
                     ApplicationName = table.Column<string>(type: "Varchar(100)", nullable: true),
@@ -65,11 +113,59 @@ namespace Repository.Migrations
                     CasteCertificateDate = table.Column<DateTime>(type: "DateTime", nullable: false),
                     CasteCertificateNumber = table.Column<string>(type: "Varchar(25)", nullable: true),
                     CasteCertificateIssuingAuthority = table.Column<string>(type: "Varchar(100)", nullable: true),
-                    EducationType = table.Column<string>(type: "Varchar(100)", nullable: true)
+                    EducationType = table.Column<string>(type: "Varchar(100)", nullable: true),
+                    PurpuseType = table.Column<string>(type: "Varchar(100)", nullable: true),
+                    EntryBy = table.Column<int>(type: "int", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_educations", x => x.ApplicationId);
+                    table.PrimaryKey("PK_educations", x => x.AppId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "statusMasters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryBy = table.Column<int>(type: "int", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_statusMasters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "talukas",
+                columns: table => new
+                {
+                    TalukaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TalukaName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DistrictID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_talukas", x => x.TalukaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "villages",
+                columns: table => new
+                {
+                    VillageId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VillageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TalukaId = table.Column<int>(type: "int", nullable: false),
+                    DistrictID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_villages", x => x.VillageId);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,6 +317,9 @@ namespace Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "applicationStatuses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -236,7 +335,22 @@ namespace Repository.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "dDLMasters");
+
+            migrationBuilder.DropTable(
+                name: "districts");
+
+            migrationBuilder.DropTable(
                 name: "educations");
+
+            migrationBuilder.DropTable(
+                name: "statusMasters");
+
+            migrationBuilder.DropTable(
+                name: "talukas");
+
+            migrationBuilder.DropTable(
+                name: "villages");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

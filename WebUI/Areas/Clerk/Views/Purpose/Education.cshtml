@@ -1,90 +1,98 @@
-﻿@model WebUI.Areas.Clerk.Models.EducationModel
+﻿@model DomainModel.EducationModel
 
 @{
     ViewData["Title"] = "Education";
 }
-
-<h1>Education</h1>
-
-<h4>EducationModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Education">
+<div class="card">
+    <div class="card-header">
+        Education Entry From
+    </div>
+    <div class="card-body">
+        <form asp-action="Education" class="row g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="ApplicationId" class="control-label"></label>
-                <input asp-for="ApplicationId" class="form-control" />
+                @{
+                    if (Model!=null)
+                    {
+                        <input asp-for="ApplicationId" value="@Model.ApplicationId" class="form-control" />
+                    }
+                    else
+                    {
+                        <input asp-for="ApplicationId" value="@ViewBag.ApplicationId" class="form-control" />
+                    }
+                }
+
                 <span asp-validation-for="ApplicationId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="ApplicationRecivedDate" class="control-label"></label>
-                <input asp-for="ApplicationRecivedDate" class="form-control" />
+                <input asp-for="ApplicationRecivedDate" id="ApplicationRecivedDate" class="form-control" />
                 <span asp-validation-for="ApplicationRecivedDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="ApplicationName" class="control-label"></label>
                 <input asp-for="ApplicationName" class="form-control" />
                 <span asp-validation-for="ApplicationName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="CaseId" class="control-label"></label>
                 <input asp-for="CaseId" class="form-control" />
                 <span asp-validation-for="CaseId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="District" class="control-label"></label>
                 <select asp-for="District" class="form-select" asp-items="@ViewBag.District">
                     <option value="">Please select District</option>
                 </select>
                 <span asp-validation-for="District" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="Taluka" class="control-label"></label>
                 <select asp-for="Taluka" class="form-select">
                     <option value="">Please select Taluka</option>
                 </select>
                 <span asp-validation-for="Taluka" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="Village" class="control-label"></label>
                 <select asp-for="Village" class="form-select">
                     <option value="">Please select Village</option>
                 </select>
                 <span asp-validation-for="Village" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="CasteCertificateDate" class="control-label"></label>
-                <input asp-for="CasteCertificateDate" class="form-control" />
+                <input asp-for="CasteCertificateDate" id="CasteCertificateDate" class="form-control" />
                 <span asp-validation-for="CasteCertificateDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label asp-for="CasteCertificateNumber" class="control-label"></label>
                 <input asp-for="CasteCertificateNumber" class="form-control" />
                 <span asp-validation-for="CasteCertificateNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label asp-for="CasteCertificateIssuingAuthority" class="control-label"></label>
                 <input asp-for="CasteCertificateIssuingAuthority" class="form-control" />
                 <span asp-validation-for="CasteCertificateIssuingAuthority" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label asp-for="EducationType" class="control-label"></label>
-                <select asp-for="EducationType" class="form-select">
+                <select asp-for="EducationType" class="form-select" asp-items="@ViewBag.EducationType">
                     <option value="">Please select EducationType</option>
                 </select>
                 <span asp-validation-for="EducationType" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label asp-for="PurpuseType" class="control-label"></label>
-               
+
                 <select asp-for="PurpuseType" class="form-select" asp-items="@ViewBag.PurpuseType">
                     <option value="">Please select PurpuseType</option>
                 </select>
                 <span asp-validation-for="PurpuseType" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label asp-for="Status" class="control-label"></label>
 
                 <select asp-for="Status" class="form-select" asp-items="@ViewBag.StatusMaster">
@@ -92,10 +100,17 @@
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group col-md-12">
+                <label asp-for="Remark" class="control-label"></label>
+                <textarea asp-for="Remark" rows="3" class="form-control"></textarea>
+                <span asp-validation-for="Remark" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+
         </form>
+
     </div>
 </div>
 
@@ -115,6 +130,13 @@
              $('#Taluka').change(function () {
                BindVillages();
             });
+                $('#ApplicationRecivedDate').datepicker({
+                format: 'yyyy-mm-dd'
+                });
+
+                 $('#CasteCertificateDate').datepicker({
+                format: 'yyyy-mm-dd'
+                });
             //var UserId = $('#UserId').val();
             //if (UserId != null)
             //{

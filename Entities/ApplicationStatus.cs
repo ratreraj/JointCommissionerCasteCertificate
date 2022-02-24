@@ -10,12 +10,14 @@ namespace Entities
 {
     public class ApplicationStatus
     {
-        public int ApplicationId { get; set; }
+        public string ApplicationId { get; set; }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EntityTranstionId { get; set; }
         [Column(TypeName = "Varchar(20)")]
         public string Status { get; set; }
+        [Column(TypeName = "Varchar(500)")]
+        public string Remark { get; set; }
         public int EntryBy { get; set; }
         [Column(TypeName = "DateTime")]
         public DateTime EntryDate { get; set; }

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebUI.Areas.Clerk.Models
+namespace DomainModel
 {
     public class EducationModel
     {
         [Required(ErrorMessage = "Please enter Application  id")]
-        public int ApplicationId { get; set; }
+        public string ApplicationId { get; set; }
         [Required(ErrorMessage = "Please enter Application Recived Date")]
         public string ApplicationRecivedDate { get; set; }
         [Required(ErrorMessage = "Please enter Application Name")]
@@ -30,6 +30,8 @@ namespace WebUI.Areas.Clerk.Models
         public string PurpuseType { get; set; }
         [Required(ErrorMessage = "Please enter Application Status")]
         public string Status { get; set; }
+        [Required(ErrorMessage = "Please enter Application Remark")]
+        public string Remark { get; set; }
 
     }
 }

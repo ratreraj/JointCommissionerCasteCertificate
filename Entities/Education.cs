@@ -12,8 +12,11 @@ namespace Entities
     {
 
         [Key]
+        public string AppId { get; set; }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ApplicationId { get; set; }
+        public int EntityTranstionId { get; set; }
+
         [Column(TypeName = "DateTime")]
         public DateTime ApplicationRecivedDate { get; set; }
         [Column(TypeName = "Varchar(100)")]
@@ -40,6 +43,6 @@ namespace Entities
         [Column(TypeName = "int")]
         public int EntryBy { get; set; }
         [Column(TypeName = "DateTime")]
-        public DateTime EntryDate{ get; set; }
+        public DateTime EntryDate { get; set; }
     }
 }

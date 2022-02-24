@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220218130212_intial01234")]
-    partial class intial01234
+    [Migration("20220223044458_intial")]
+    partial class intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,14 +28,17 @@ namespace Repository.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
+                    b.Property<string>("ApplicationId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EntryBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("DateTime");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("Varchar(500)");
 
                     b.Property<string>("Status")
                         .HasColumnType("Varchar(20)");
@@ -89,10 +92,8 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Entities.Education", b =>
                 {
-                    b.Property<int>("ApplicationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("AppId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ApplicationName")
                         .HasColumnType("Varchar(100)");
@@ -118,6 +119,11 @@ namespace Repository.Migrations
                     b.Property<string>("EducationType")
                         .HasColumnType("Varchar(100)");
 
+                    b.Property<int>("EntityTranstionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("EntryBy")
                         .HasColumnType("int");
 
@@ -133,7 +139,7 @@ namespace Repository.Migrations
                     b.Property<string>("Village")
                         .HasColumnType("Varchar(100)");
 
-                    b.HasKey("ApplicationId");
+                    b.HasKey("AppId");
 
                     b.ToTable("educations");
                 });
