@@ -15,11 +15,14 @@ namespace Services.Implementations
     {
         private readonly IRepository<Education> _educationRepo;
         private readonly IRepository<ApplicationStatus> _applicationStatusRepo;
+
+
         private readonly AppDbContext _appDbContext;
         public EducationServices(IRepository<Education> educationRepo, IRepository<ApplicationStatus> applicationStatusRep)
         {
             _educationRepo = educationRepo;
             _applicationStatusRepo = applicationStatusRep;
+
             _appDbContext = new AppDbContext();
         }
         public int EducationSave(EducationModel model, int userId)
@@ -41,12 +44,16 @@ namespace Services.Implementations
                 PurpuseType =  model.PurpuseType,
                 EntryBy=userId,
                 EntryDate = System.DateTime.Now,
+                
             };
             _educationRepo.Add(data);
             ApplicationStatus applicationStatus = new ApplicationStatus
             {
                 ApplicationId = model.ApplicationId,
-                Status= model.Status,
+                CurrentStatus= model.Status,
+                CurrentDate= DateTime.Now,
+                PerviousStatus=  model.Status,
+                PerviousDate =  DateTime.Now,
                 Remark = model.Remark,
                 EntryBy=userId,
                 EntryDate = System.DateTime.Now,
@@ -89,9 +96,15 @@ namespace Services.Implementations
             return _appDbContext.GetApplicationId();
         }
 
+
         public EducationModel GetEducationById(string ApplicationId)
         {
             return _appDbContext.GetEducationById(ApplicationId);
+        }
+
+        public EducationModel GetEducationByAppId(string ApplicationId)
+        {
+            return _appDbContext.GetEducationByAppId(ApplicationId);
         }
 
         public IEnumerable<EducationModel> GetEducationDetails(int userid, string status)
@@ -105,7 +118,7 @@ namespace Services.Implementations
             ApplicationStatus data = new ApplicationStatus
             {
                 ApplicationId = model.ApplicationId,
-                Status = model.Status,
+                CurrentStatus = model.CurrentStatus,
                 Remark = model.Remark,
                 EntryBy   = userId,
 
@@ -113,6 +126,16 @@ namespace Services.Implementations
             result= _appDbContext.UpdateApplicationStatus(model);
 
             return result;
+        }
+
+        public IEnumerable<ActionStatusModel> GetActionStatus(int roleId, string Status)
+        {
+            return _appDbContext.GetActionStatus(roleId, Status);
+        }
+
+        public IEnumerable<UsersModel> GetUsers(string sttaus, string nextststus)
+        {
+            return _appDbContext.GetUsers(sttaus, nextststus);
         }
     }
 }

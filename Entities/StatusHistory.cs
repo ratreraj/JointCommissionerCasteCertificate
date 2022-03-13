@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class ApplicationStatus
+    public class StatusHistory
     {
         public string ApplicationId { get; set; }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EntityTranstionId { get; set; }
+
+        public int EntityTranstionIdFk { get; set; }
 
         [Column(TypeName = "Varchar(20)")]
         public string CurrentStatus { get; set; }
@@ -30,11 +32,7 @@ namespace Entities
         [Column(TypeName = "Varchar(500)")]
         public string Remark { get; set; }
         public int EntryBy { get; set; }
-        public int UpdatedBy { get; set; }
-
         [Column(TypeName = "DateTime")]
         public DateTime EntryDate { get; set; }
-
-
     }
 }

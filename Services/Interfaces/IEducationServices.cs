@@ -20,7 +20,14 @@ namespace Services.Interfaces
 
         public EducationModel GetEducationById(string ApplicationId);
 
+        public EducationModel GetEducationByAppId(string ApplicationId);
+
+        
+
         public int UpdateApplicationStatus(ApplicationStatus model,int userId);
+
+        IEnumerable<ActionStatusModel> GetActionStatus(int roleId, string Status);
+        IEnumerable<UsersModel> GetUsers(string sttaus, string nextststus);
 
     }
 }

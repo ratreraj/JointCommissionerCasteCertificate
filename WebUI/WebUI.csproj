@@ -19,8 +19,6 @@
     <Folder Include="Areas\Dysp\Models\" />
     <Folder Include="Areas\Officer\Data\" />
     <Folder Include="Areas\Officer\Models\" />
-    <Folder Include="Areas\Officer\Views\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,9 @@
-﻿using Entities;
+﻿using DomainModel;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Services.Interfaces;
+using WebUI.Helpers;
 
 namespace WebUI.Areas.Dysp.Controllers
 {
@@ -9,36 +11,52 @@ namespace WebUI.Areas.Dysp.Controllers
     {
         private readonly IEducationServices _educationServices;
         private readonly IMasterServices _masterServices;
+        User user;
+        DashboardSetting dashboardSetting;
         public DashboardController(IEducationServices educationServices, IMasterServices masterServices)
         {
             _educationServices= educationServices;
             _masterServices=masterServices;
         }
+
         public IActionResult Index()
         {
-            var data = _educationServices.GetEducationDetails(2, "CZ");
             Onload();
+            var data = _educationServices.GetEducationDetails(user.Id, dashboardSetting.Status);
+
             return View(data);
         }
 
         private void Onload()
         {
-
-            ViewBag.StatusMaster = new SelectList(_masterServices.GetStatusMaster(), "Status", "Description");
-
+            user =  HttpContext.Session.GetComplexData<User>("users");
+            dashboardSetting =  HttpContext.Session.GetComplexData<DashboardSetting>("dasbaodsetting");
+            ViewBag.StatusMaster = new SelectList(_educationServices.GetActionStatus(dashboardSetting.RoleID, dashboardSetting.Status), "NextStatus", "Description");
+            ViewBag.StatusDirection = new SelectList(_educationServices.GetActionStatus(dashboardSetting.RoleID, dashboardSetting.Status), "NextStatus", "Direction");
+            ViewBag.Users = new SelectList(_educationServices.GetUsers(dashboardSetting.Status, "Officer"), "ID", "Name");
             // ViewBag.Genders = new List<string>() { "Male", "Female" };
 
         }
+
+
+        [HttpPost]
+        public JsonResult GetDetails(string appId)
+        {
+
+            EducationModel educationModel = _educationServices.GetEducationByAppId(appId);
+            return Json(educationModel);
+        }
+
 
         [HttpPost]
         public JsonResult Approve(string appId, string status, string remark, int userId)
         {
             int result = 0;
-            
+
             ApplicationStatus data = new ApplicationStatus
             {
                 ApplicationId =appId,
-                Status = status,
+                CurrentStatus = status,
                 Remark = remark,
                 EntryBy   = userId,
 

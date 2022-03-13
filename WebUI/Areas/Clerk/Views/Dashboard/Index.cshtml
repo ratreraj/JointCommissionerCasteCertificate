@@ -1,10 +1,15 @@
-﻿@model IEnumerable<DomainModel.EducationModel>
-
+﻿@using Microsoft.AspNetCore.Http
+@using WebUI.Helpers
+@using Entities
+@model IEnumerable<DomainModel.EducationModel>
+@inject IHttpContextAccessor httpContextAccessor
 @{
     ViewData["Title"] = "Index";
 }
 
-
+@{
+    User user = httpContextAccessor.HttpContext.Session.GetComplexData<User>("users");
+}
 <p>
     <a asp-action="Education" class="btn btn-primary btn-sm" asp-controller="Purpose">Create New</a>
 </p>
@@ -16,7 +21,7 @@
             </th>
 
             <th>
-               Application Name
+                Application Name
             </th>
 
             <th>
@@ -30,7 +35,7 @@
             </th>
 
             <th>
-               Purpuse Type
+                Purpuse Type
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -70,11 +75,208 @@
                 </td>
 
                 <td>
+
                     @Html.ActionLink("Edit","Edit", "Purpose", new { ApplicationId=item.ApplicationId }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <button type="button" id="@item.ApplicationId" class="btn btn-primary btn-sm Details">Details</button>
+                    <button type="button" id="@item.ApplicationId" class="btn btn-primary btn-sm Approve">Approve</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="MyDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="output">
+
+                    @*<tr class="table-head">
+
+                        <th>Stock Id</th>
+
+                        <th> Stock Name</th>
+
+                        <th> Stock Price</th>
+
+                        </tr>
+
+                        <tbody id="output">*@
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="MyApprovalModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Direction</label>
+                        <label class="control-label"></label>
+
+                        <select class="form-select" id="StatusStatusDirection" asp-items="@ViewBag.StatusDirection">
+                            <option value="">Please select Direction</option>
+                        </select>
+                        @* <span asp-validation-for="Status" class="text-danger"></span>*@
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Status</label>
+                        <label class="control-label"></label>
+
+                        <select class="form-select" id="StatusMaster" asp-items="@ViewBag.StatusMaster">
+                            <option value="">Please select Status</option>
+                        </select>
+                        @* <span asp-validation-for="Status" class="text-danger"></span>*@
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Users</label>
+                        <label class="control-label"></label>
+
+                        <select class="form-select" id="Usersdata" asp-items="@ViewBag.UsersData">
+                            <option value="">Please select User</option>
+                        </select>
+                        @* <span asp-validation-for="Status" class="text-danger"></span>*@
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Remark</label>
+                        <label class="control-label"></label>
+                        <input id="Remark" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="btnApprove" class="btn btn-primary ">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="AppIdValue" value="0" />
+
+@section Scripts {
+<script>
+
+    $(document).ready(function () {
+
+    //var myModal = document.getElementById('myModal')
+    //var myInput = document.getElementById('myInput')
+
+    //myModal.addEventListener('shown.bs.modal', function () {
+    //myInput.focus()
+    //});
+
+
+
+
+            function Approve()
+            {
+                var status = "#StatusMaster";
+                var AppId = "#AppId";
+                var Remark = "#Remark";
+                var UserId =@user.Id;
+                var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusMaster").val(),"remark":$("#Remark").val(),"userId":$("#Usersdata").val() };
+                alert(JSON.stringify(d));
+                $.ajax({
+                type: "Post",
+                contentType: "application/x-www-form-urlencoded",
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                url: '@Url.Content("~/")' + "Clerk/Dashboard/Approve" ,
+                data: d,
+                success: function (result) {
+                  alert(result);
+                  if(result==1)
+                  {
+                      $('#MyApprovalModal').modal('hide');
+                      alert("Succefully Approved")
+                  }
+
+
+                },
+                error: function (result) {
+                },
+            });
+
+            }
+
+
+            function GetDetails(appId)
+            {
+
+                var d = { "appId": appId };
+                alert(JSON.stringify(d));
+                $.ajax({
+                type: "Post",
+                contentType: "application/x-www-form-urlencoded",
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                url: '@Url.Content("~/")' + "Clerk/Dashboard/GetDetails" ,
+                data: d,
+                success: function (result) {
+
+                console.log(result);
+                    var row = "";
+                    row+="<tr> <td>Application Id - </td><td>" +  result.applicationId + "</td> <td>Application Recived Date - </td><td>" + result.applicationRecivedDate + "</td></tr>";
+                    row+="<tr><td>Application Name - <td><td>" + result.applicationName + "</td><td>Case Id - <td><td>" + result.caseId + "</td></tr>";
+                    row+="<tr><td>Village - <td><td>" + result.village + "</td><td>Taluka - <td><td>" + result.taluka + "</td></tr>";
+                    row+="<tr><td>District - <td><td>" + result.district + "</td><td>Caste Certificate Date - <td><td>" + result.casteCertificateDate + "</td></tr>";
+                    row+="<tr><td>Caste Certificate Number - <td><td>" + result.casteCertificateNumber + "</td><td>Caste Certificate Issuing Authority - <td><td>" + result.casteCertificateIssuingAuthority + "</td></tr>";
+                    row+="<tr><td>Education Type - <td><td>" + result.educationType + "</td><td>PurpuseType - <td><td>" + result.purpuseType + "</td></tr>";
+                    row+="<tr><td>Status - <td><td>" + result.status + "</td><td>Remark - <td><td>" + result.remark + "</td></tr>";
+
+                    $("#output").html(row);
+
+
+                },
+                error: function (result) {
+                },
+            });
+
+            }
+
+           $("#btnApprove").on('click',function(e)
+           {
+              Approve();
+           });
+
+            $(".Details").on('click',function(e)
+            {
+                 var id = this.id;
+                 $('#MyDetailsModal').modal('show');
+                 GetDetails(id);
+
+
+            });
+
+            $(".Approve").on('click',function(e)
+            {
+                var id = this.id;
+                alert(id);
+                $('#AppIdValue').val(id);
+                
+                $('#MyApprovalModal').modal('show');
+            });
+
+            });
+</script>
+}

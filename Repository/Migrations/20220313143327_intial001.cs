@@ -3,10 +3,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class intial : Migration
+    public partial class intial001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "actionStatus",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CurrentStatus = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    NextStatus = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    Description = table.Column<string>(type: "Varchar(200)", nullable: true),
+                    Direction = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_actionStatus", x => x.ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "applicationStatuses",
                 columns: table => new
@@ -14,9 +31,13 @@ namespace Repository.Migrations
                     EntityTranstionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    CurrentStatus = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    CurrentDate = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    PerviousStatus = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    PerviousDate = table.Column<DateTime>(type: "DateTime", nullable: false),
                     Remark = table.Column<string>(type: "Varchar(500)", nullable: true),
                     EntryBy = table.Column<int>(type: "int", nullable: false),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false)
                 },
                 constraints: table =>
@@ -68,6 +89,20 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "dashboardSetting",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_dashboardSetting", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "dDLMasters",
                 columns: table => new
                 {
@@ -116,11 +151,34 @@ namespace Repository.Migrations
                     EducationType = table.Column<string>(type: "Varchar(100)", nullable: true),
                     PurpuseType = table.Column<string>(type: "Varchar(100)", nullable: true),
                     EntryBy = table.Column<int>(type: "int", nullable: false),
-                    EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false)
+                    EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    VCCompltedDate = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    HearingDate = table.Column<DateTime>(type: "DateTime", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_educations", x => x.AppId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "statusHistory",
+                columns: table => new
+                {
+                    EntityTranstionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityTranstionIdFk = table.Column<int>(type: "int", nullable: false),
+                    CurrentStatus = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    CurrentDate = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    PerviousStatus = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    PerviousDate = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    Remark = table.Column<string>(type: "Varchar(500)", nullable: true),
+                    EntryBy = table.Column<int>(type: "int", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_statusHistory", x => x.EntityTranstionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -317,6 +375,9 @@ namespace Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "actionStatus");
+
+            migrationBuilder.DropTable(
                 name: "applicationStatuses");
 
             migrationBuilder.DropTable(
@@ -335,6 +396,9 @@ namespace Repository.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "dashboardSetting");
+
+            migrationBuilder.DropTable(
                 name: "dDLMasters");
 
             migrationBuilder.DropTable(
@@ -342,6 +406,9 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "educations");
+
+            migrationBuilder.DropTable(
+                name: "statusHistory");
 
             migrationBuilder.DropTable(
                 name: "statusMasters");

@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220223044458_intial")]
-    partial class intial
+    [Migration("20220313150948_intial002")]
+    partial class intial002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,33 @@ namespace Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Entities.ActionStatus", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CurrentStatus")
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("Varchar(200)");
+
+                    b.Property<string>("Direction")
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<string>("NextStatus")
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("actionStatus");
+                });
 
             modelBuilder.Entity("Entities.ApplicationStatus", b =>
                 {
@@ -31,17 +58,29 @@ namespace Repository.Migrations
                     b.Property<string>("ApplicationId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CurrentDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("CurrentStatus")
+                        .HasColumnType("Varchar(20)");
+
                     b.Property<int>("EntryBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("DateTime");
 
+                    b.Property<DateTime>("PerviousDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("PerviousStatus")
+                        .HasColumnType("Varchar(20)");
+
                     b.Property<string>("Remark")
                         .HasColumnType("Varchar(500)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("Varchar(20)");
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.HasKey("EntityTranstionId");
 
@@ -73,6 +112,27 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("dDLMasters");
+                });
+
+            modelBuilder.Entity("Entities.DashboardSetting", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("dashboardSetting");
                 });
 
             modelBuilder.Entity("Entities.Districts", b =>
@@ -130,11 +190,17 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("DateTime");
 
+                    b.Property<DateTime>("HearingDate")
+                        .HasColumnType("DateTime");
+
                     b.Property<string>("PurpuseType")
                         .HasColumnType("Varchar(100)");
 
                     b.Property<string>("Taluka")
                         .HasColumnType("Varchar(100)");
+
+                    b.Property<DateTime>("VCCompltedDate")
+                        .HasColumnType("DateTime");
 
                     b.Property<string>("Village")
                         .HasColumnType("Varchar(100)");
@@ -174,6 +240,45 @@ namespace Repository.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Entities.StatusHistory", b =>
+                {
+                    b.Property<int>("EntityTranstionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CurrentDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("CurrentStatus")
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<int>("EntityTranstionIdFk")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<DateTime>("PerviousDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("PerviousStatus")
+                        .HasColumnType("Varchar(20)");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("Varchar(500)");
+
+                    b.HasKey("EntityTranstionId");
+
+                    b.ToTable("statusHistory");
                 });
 
             modelBuilder.Entity("Entities.StatusMaster", b =>

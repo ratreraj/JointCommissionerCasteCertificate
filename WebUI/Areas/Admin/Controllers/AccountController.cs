@@ -32,7 +32,7 @@ namespace WebUI.Areas.Admin.Controllers
                     PhoneNumber = model.PhoneNumber
                 };
 
-                bool flag = _authenticationService.CreateUser(user, model.Password, "Clerk");
+                bool flag = _authenticationService.CreateUser(user, model.Password, "Officer");
                 if (flag)
                 {
                     return RedirectToAction("Index", "Dashboard");

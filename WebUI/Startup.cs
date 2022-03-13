@@ -36,7 +36,10 @@ namespace WebUI
                 builder.AddRazorRuntimeCompilation();
             }
 
-
+            services.AddDistributedMemoryCache();
+            services.AddSession(option => {
+                option.IdleTimeout= TimeSpan.FromMinutes(20);
+            });
             services.AddControllersWithViews();
         }
 
@@ -56,6 +59,8 @@ namespace WebUI
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

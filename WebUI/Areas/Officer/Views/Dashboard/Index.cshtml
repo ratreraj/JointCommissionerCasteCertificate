@@ -73,7 +73,7 @@
                 </td>
 
                 <td>
-                   
+                    <input type="hidden" id="AppId" value="@item.ApplicationId" />
                     @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
@@ -173,9 +173,6 @@
     </div>
 </div>
 
-
- <input type="hidden" id="AppIdValue" value="" />
-
 @section Scripts {
 <script>
 
@@ -188,7 +185,8 @@
     //myInput.focus()
     //});
 
-    
+
+
 
             function Approve()
             {
@@ -196,7 +194,7 @@
                 var AppId = "#AppId";
                 var Remark = "#Remark";
                 var UserId =@user.Id;
-                var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusMaster").val(),"remark":$("#Remark").val(),"userId":UserId };
+                var d = { "appId": $("#AppId").val(),"status":$("#StatusMaster").val(),"remark":$("#Remark").val(),"userId":UserId };
                 alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
@@ -271,9 +269,7 @@
             $(".Approve").on('click',function(e)
             {
                 var id = this.id;
-                _apppid= id;
-                alert(_apppid);
-                document.getElementById("#AppIdValue").value = id;
+                alert(id);
                 $('#MyApprovalModal').modal('show');
             });
 

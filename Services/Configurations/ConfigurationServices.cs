@@ -37,6 +37,7 @@ namespace Services.Configurations
             // services.AddTransient<IMasterServices, MasterServices>();
             services.AddTransient<IRepository<Education>, Repository<Education>>();
             services.AddTransient<IRepository<ApplicationStatus>, Repository<ApplicationStatus>>();
+            services.AddTransient<IRepository<DashboardSetting>, Repository<DashboardSetting>>();
             //services.AddScoped<AppDbContext>();
 
 

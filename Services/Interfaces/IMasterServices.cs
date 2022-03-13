@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Repository;
 using Entities;
+using DomainModel;
+
 namespace Services.Interfaces
 {
     public interface IMasterServices
@@ -14,5 +16,6 @@ namespace Services.Interfaces
         IEnumerable<Districts> GetDistricts();
         IEnumerable<Talukas> GetTalukas(int DistrictId);
         IEnumerable<Villages> GetVillages(int TalukaId);
+       
     }
 }

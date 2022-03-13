@@ -44,5 +44,11 @@ namespace Entities
         public int EntryBy { get; set; }
         [Column(TypeName = "DateTime")]
         public DateTime EntryDate { get; set; }
+
+        [Column(TypeName = "DateTime")]
+        public Nullable<DateTime> VCCompltedDate { get; set; }
+
+        [Column(TypeName = "DateTime")]
+        public Nullable<DateTime> HearingDate { get; set; }
     }
 }

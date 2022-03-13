@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DomainModel;
+using Entities;
 using Repository.Interfaces;
 using Services.Interfaces;
 using System;
@@ -16,6 +17,7 @@ namespace Services.Implementations
         private readonly IRepository<Districts> _districtsRepo;
         private readonly IRepository<Talukas> _talukasRepo;
         private readonly IRepository<Villages> _villagesRepo;
+       
 
         public MasterServices(IRepository<StatusMaster> statusMaster, IRepository<DDLMaster> dDLMaster, IRepository<Districts> districts, IRepository<Talukas> talukas, IRepository<Villages> villages)
         {
@@ -24,8 +26,12 @@ namespace Services.Implementations
             _districtsRepo = districts;
             _talukasRepo=talukas;
             _villagesRepo=villages;
+        
 
         }
+
+        
+
         public IEnumerable<DDLMaster> GetDDLMaster(string Type)
         {
             return _dDLMasterRepo.GetAll().Where(x=>x.Categroy==Type);

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220313151044_intial003")]
+    partial class intial003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace Repository.Migrations
 
                     b.Property<string>("Direction")
                         .HasColumnType("Varchar(20)");
-
-                    b.Property<int>("NextRoleId")
-                        .HasColumnType("int");
 
                     b.Property<string>("NextStatus")
                         .HasColumnType("Varchar(20)");
@@ -191,7 +190,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("DateTime");
 
-                    b.Property<DateTime?>("HearingDate")
+                    b.Property<DateTime>("HearingDate")
                         .HasColumnType("DateTime");
 
                     b.Property<string>("PurpuseType")
@@ -200,7 +199,7 @@ namespace Repository.Migrations
                     b.Property<string>("Taluka")
                         .HasColumnType("Varchar(100)");
 
-                    b.Property<DateTime?>("VCCompltedDate")
+                    b.Property<DateTime>("VCCompltedDate")
                         .HasColumnType("DateTime");
 
                     b.Property<string>("Village")

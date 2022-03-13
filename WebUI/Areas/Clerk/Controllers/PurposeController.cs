@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Services;
 using Services.Interfaces;
 using System.Collections.Generic;
+using WebUI.Helpers;
 
 namespace WebUI.Areas.Clerk.Controllers
 {
@@ -12,7 +13,9 @@ namespace WebUI.Areas.Clerk.Controllers
     {
         private readonly IMasterServices _masterServices;
         private readonly IEducationServices _educationServices;
-        public PurposeController(IMasterServices masterServices, IEducationServices educationServices)
+        User user;
+        DashboardSetting dashboardSetting;
+        public PurposeController(IMasterServices masterServices, IEducationServices educationServices) 
         {
 
             _masterServices=masterServices;
@@ -43,7 +46,8 @@ namespace WebUI.Areas.Clerk.Controllers
             int result = 0;
             if (ModelState.IsValid)
             {
-                result= _educationServices.EducationSave(model, 2);
+                user =  HttpContext.Session.GetComplexData<User>("users");
+                result= _educationServices.EducationSave(model, user.Id);
             }
 
 
@@ -54,6 +58,8 @@ namespace WebUI.Areas.Clerk.Controllers
 
         private void Onload()
         {
+            user =  HttpContext.Session.GetComplexData<User>("users");
+            dashboardSetting =  HttpContext.Session.GetComplexData<DashboardSetting>("dasbaodsetting");
 
             ViewBag.StatusMaster = new SelectList(_masterServices.GetStatusMaster(), "Status", "Description");
             ViewBag.District = new SelectList(_masterServices.GetDistricts(), "DistrictID", "DistictName");
