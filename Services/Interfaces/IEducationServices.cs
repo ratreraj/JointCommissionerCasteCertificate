@@ -28,6 +28,7 @@ namespace Services.Interfaces
 
         IEnumerable<ActionStatusModel> GetActionStatus(int roleId, string Status);
         IEnumerable<UsersModel> GetUsers(string sttaus, string nextststus);
+        IEnumerable<StatusHistory> GetStatusHistory(string AppId);
 
     }
 }

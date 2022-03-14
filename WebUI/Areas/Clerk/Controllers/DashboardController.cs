@@ -3,6 +3,7 @@ using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Services.Interfaces;
+using System.Collections.Generic;
 using WebUI.Helpers;
 
 namespace WebUI.Areas.Clerk.Controllers
@@ -47,6 +48,15 @@ namespace WebUI.Areas.Clerk.Controllers
 
 
         [HttpPost]
+        public JsonResult GetHistory(string appId)
+        {
+
+            IEnumerable<StatusHistory> statusHistory = _educationServices.GetStatusHistory(appId);
+            return Json(statusHistory);
+        }
+
+
+        [HttpPost]
         public JsonResult Approve(string appId, string status, string remark, int userId)
         {
             int result = 0;
@@ -62,5 +72,22 @@ namespace WebUI.Areas.Clerk.Controllers
             result=_educationServices.UpdateApplicationStatus(data, userId);
             return Json(result);
         }
+
+        [HttpPost]
+        public ActionResult GetUser(string cuurentStatus, string nextStatus)
+        {
+
+            if (cuurentStatus!="")
+            {
+
+                return Json(new SelectList(_educationServices.GetUsers(cuurentStatus, nextStatus), "ID", "Name"));
+            }
+            else
+            {
+                return Json(new SelectList(string.Empty, "ID", "Name"));
+            }
+
+        }
+
     }
 }

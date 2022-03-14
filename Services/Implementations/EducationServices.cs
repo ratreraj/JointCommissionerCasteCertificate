@@ -137,5 +137,10 @@ namespace Services.Implementations
         {
             return _appDbContext.GetUsers(sttaus, nextststus);
         }
+
+        public IEnumerable<StatusHistory> GetStatusHistory(string AppId)
+        {
+           return _appDbContext.GetHistory(AppId);
+        }
     }
 }

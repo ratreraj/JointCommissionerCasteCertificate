@@ -6,14 +6,18 @@ using Services.Interfaces;
 using System.Collections.Generic;
 using WebUI.Helpers;
 
-namespace WebUI.Areas.Dysp.Controllers
+
+namespace WebUI.Areas.Court.Controllers
 {
+
+
     public class DashboardController : BaseController
     {
         private readonly IEducationServices _educationServices;
         private readonly IMasterServices _masterServices;
         User user;
         DashboardSetting dashboardSetting;
+
         public DashboardController(IEducationServices educationServices, IMasterServices masterServices)
         {
             _educationServices= educationServices;
@@ -24,7 +28,6 @@ namespace WebUI.Areas.Dysp.Controllers
         {
             Onload();
             var data = _educationServices.GetEducationDetails(user.Id, dashboardSetting.Status);
-
             return View(data);
         }
 
@@ -43,7 +46,6 @@ namespace WebUI.Areas.Dysp.Controllers
         [HttpPost]
         public JsonResult GetDetails(string appId)
         {
-
             EducationModel educationModel = _educationServices.GetEducationByAppId(appId);
             return Json(educationModel);
         }

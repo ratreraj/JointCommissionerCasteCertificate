@@ -188,7 +188,7 @@
            });
 
         function BindUser() {
-            var url = '@Url.Content("~/")' + "Officer/Dashboard/GetUser";
+            var url = '@Url.Content("~/")' + "PI/Dashboard/GetUser";
                 var ddlsource = "#StatusStatusDirection";
                 $.post(url, { cuurentStatus:"@dashboardSetting.Status",nextStatus :$(ddlsource).val() }, function (data) {
                     var items = '';
@@ -222,7 +222,7 @@
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
                 //contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-                url: '@Url.Content("~/")' + "Officer/Dashboard/Approve" ,
+                url: '@Url.Content("~/")' + "PI/Dashboard/Approve" ,
                 data: d,
                 success: function (result) {
                   //alert(result);
@@ -250,7 +250,7 @@
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
                 //contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-                url: '@Url.Content("~/")' + "Officer/Dashboard/GetDetails" ,
+                url: '@Url.Content("~/")' + "PI/Dashboard/GetDetails" ,
                 data: d,
                 success: function (result) {
 

@@ -218,7 +218,7 @@ namespace Repository
                 // Sql Parameters 
                 SqlParameter[] sqlParameter = {
                 new SqlParameter("@ApplicationId", application.ApplicationId),
-                new SqlParameter("@CurrentDate", application.CurrentStatus),
+                new SqlParameter("@CurrentStatus", application.CurrentStatus),
                 new SqlParameter("@Remark", application.Remark),
                 new SqlParameter("@UserId", application.EntryBy)
                 };
@@ -275,7 +275,7 @@ namespace Repository
             return statusModels;
         }
 
-        public IEnumerable<UsersModel> GetUsers(string CuurentStatus,string NextStatus)
+        public IEnumerable<UsersModel> GetUsers(string CuurentStatus, string NextStatus)
         {
             List<UsersModel> users = new List<UsersModel>();
 
@@ -316,6 +316,46 @@ namespace Repository
 
 
             return users;
+        }
+
+
+        public IEnumerable<StatusHistory> GetHistory(string AppId)
+        {
+            List<StatusHistory> statusHistories = new List<StatusHistory>();
+
+            using (var cmd = Database.GetDbConnection().CreateCommand())
+            {
+
+                cmd.CommandText ="GetAppHistory";
+                cmd.CommandType= System.Data.CommandType.StoredProcedure;
+                // Sql Parameters 
+                SqlParameter appId = new SqlParameter("@AppId", AppId);
+                cmd.Parameters.Add(appId);
+
+
+
+                Database.OpenConnection();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        StatusHistory status = new StatusHistory
+                        {
+                            ApplicationId =  reader.GetString("ApplicationId"),
+                            CurrentStatus= reader.GetString("CurrentStatus"),
+                            CurrentDate=  reader.GetDateTime("CurrentDate"),
+                            PerviousStatus= reader.GetString("PerviousStatus"),
+                            PerviousDate=reader.GetDateTime("PerviousDate"),
+                            Remark = reader.GetString("Remark")
+                        };
+                        statusHistories.Add(status);
+
+                    }
+                }
+            }
+
+            Database.CloseConnection();
+            return statusHistories;
         }
     }
 }

@@ -10,6 +10,8 @@
 
 @{
     User user = httpContextAccessor.HttpContext.Session.GetComplexData<User>("users");
+    DashboardSetting dashboardSetting = httpContextAccessor.HttpContext.Session.GetComplexData<DashboardSetting>("dasbaodsetting");
+
 }
 
 <table class="table">
@@ -73,7 +75,7 @@
                 </td>
 
                 <td>
-                   
+
                     @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
@@ -137,22 +139,22 @@
                         @* <span asp-validation-for="Status" class="text-danger"></span>*@
 
                     </div>
-                    <div class="mb-3">
+                    @*<div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Status</label>
                         <label class="control-label"></label>
 
                         <select class="form-select" id="StatusMaster" asp-items="@ViewBag.StatusMaster">
-                            <option value="">Please select Status</option>
+                        <option value="">Please select Status</option>
                         </select>
-                        @* <span asp-validation-for="Status" class="text-danger"></span>*@
 
-                    </div>
+
+                        </div>*@
 
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Users</label>
                         <label class="control-label"></label>
 
-                        <select class="form-select" id="Users" asp-items="@ViewBag.Users">
+                        <select class="form-select" id="Users">
                             <option value="">Please select User</option>
                         </select>
                         @* <span asp-validation-for="Status" class="text-danger"></span>*@
@@ -174,21 +176,41 @@
 </div>
 
 
- <input type="hidden" id="AppIdValue" value="" />
+<input type="hidden" id="AppIdValue" value="0" />
 
 @section Scripts {
 <script>
 
     $(document).ready(function () {
 
-    //var myModal = document.getElementById('myModal')
-    //var myInput = document.getElementById('myInput')
+            $('#StatusStatusDirection').change(function () {
+                        BindUser();
+                    });
 
-    //myModal.addEventListener('shown.bs.modal', function () {
-    //myInput.focus()
-    //});
 
-    
+        function BindUser() {
+            var url = '@Url.Content("~/")' + "Dysp/Dashboard/GetUser";
+                var ddlsource = "#StatusStatusDirection";
+                $.post(url, { cuurentStatus:"@dashboardSetting.Status",nextStatus :$(ddlsource).val() }, function (data) {
+                    var items = '';
+                    $("#Users").empty();
+                    items += "<option value=''>Please Select User</option>";
+                    $.each(data, function (i, D) {
+                        console.log(data);
+                        console.log(D);
+                     items += "<option value='" + D.value + "'>" + D.text + "</option>";
+                    });
+                    $('#Users').html(items);
+
+                    //
+                    //var _cityval = @(ViewBag.City!=null? Html.Raw(ViewBag.City) : Html.Raw("undefined"));
+                    //if (_cityval != null) {
+                    //    $('#City').val(_cityval);
+                    //}
+
+                });
+                }
+
 
             function Approve()
             {
@@ -196,7 +218,7 @@
                 var AppId = "#AppId";
                 var Remark = "#Remark";
                 var UserId =@user.Id;
-                var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusMaster").val(),"remark":$("#Remark").val(),"userId":UserId };
+                var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusStatusDirection").val(),"remark":$("#Remark").val(),"userId":$("#Users").val() };
                 alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
@@ -271,9 +293,9 @@
             $(".Approve").on('click',function(e)
             {
                 var id = this.id;
-                _apppid= id;
-                alert(_apppid);
-                document.getElementById("#AppIdValue").value = id;
+                
+                alert(id);
+               $('#AppIdValue').val(id);
                 $('#MyApprovalModal').modal('show');
             });
 

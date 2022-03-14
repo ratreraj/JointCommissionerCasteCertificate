@@ -3,6 +3,7 @@ using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Services.Interfaces;
+using System.Collections.Generic;
 using WebUI.Helpers;
 
 
@@ -65,6 +66,32 @@ namespace WebUI.Areas.Officer.Controllers
             };
             result=_educationServices.UpdateApplicationStatus(data, userId);
             return Json(result);
+        }
+
+        [HttpPost]
+        public ActionResult GetUser(string cuurentStatus, string nextStatus)
+        {
+
+            if (cuurentStatus!="")
+            {
+
+                return Json(new SelectList(_educationServices.GetUsers(cuurentStatus, nextStatus), "ID", "Name"));
+            }
+            else
+            {
+                return Json(new SelectList(string.Empty, "ID", "Name"));
+            }
+
+        }
+
+
+
+        [HttpPost]
+        public JsonResult GetHistory(string appId)
+        {
+
+            IEnumerable<StatusHistory> statusHistory = _educationServices.GetStatusHistory(appId);
+            return Json(statusHistory);
         }
     }
 }
