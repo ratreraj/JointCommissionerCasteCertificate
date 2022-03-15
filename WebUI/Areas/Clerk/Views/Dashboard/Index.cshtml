@@ -99,7 +99,7 @@
             <div class="modal-body">
                 <table id="output">
                 </table>
-                <table id="tbHistory" class="table" >
+                <table id="tbHistory" class="table">
                     <thead>
                         <tr>
                             <td>Application Id</td>
@@ -226,7 +226,7 @@
                 url: '@Url.Content("~/")' + "Clerk/Dashboard/Approve" ,
                 data: d,
                 success: function (result) {
-                  alert(result);
+                 // alert(result);
                   if(result==1)
                   {
                       $('#MyApprovalModal').modal('hide');

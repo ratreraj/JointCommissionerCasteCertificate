@@ -112,6 +112,20 @@
                         <tbody id="output">*@
 
                 </table>
+
+                <table id="tbHistory" class="table">
+                    <thead>
+                        <tr>
+                            <td>Application Id</td>
+                            <td>Cuurent Status</td>
+                            <td>Cuurent Date</td>
+                            <td>Pervious Status</td>
+                            <td>Pervious Date</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -274,6 +288,32 @@
 
             }
 
+             function GetHistory(appId)
+              {
+
+                var d = { "appId": appId };
+                alert(JSON.stringify(d));
+                $.ajax({
+                type: "Post",
+                contentType: "application/x-www-form-urlencoded",
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                url: '@Url.Content("~/")' + "Officer/Dashboard/GetHistory" ,
+                data: d,
+                success: function (result) {
+
+                console.log(result);
+
+                    for (var i = 0; i < result.length; i++) {
+                    $("#tbHistory").append("<tr><td>" + result[i].applicationId + "</td><td>" + result[i].currentStatus + "</td><td>" + result[i].currentDate + "</td> <td>" + result[i].perviousStatus + "</td> <td>" + result[i].perviousDate + "</td></tr>");
+                    }
+
+                },
+                error: function (result) {
+                },
+            });
+
+            }
+
            $("#btnApprove").on('click',function(e)
            {
               Approve();
@@ -284,6 +324,7 @@
                  var id = this.id;
                  $('#MyDetailsModal').modal('show');
                  GetDetails(id);
+                 GetHistory(id);
 
 
             });
