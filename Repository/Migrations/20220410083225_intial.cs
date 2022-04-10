@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class intial001 : Migration
+    public partial class intial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,8 @@ namespace Repository.Migrations
                     NextStatus = table.Column<string>(type: "Varchar(20)", nullable: true),
                     Description = table.Column<string>(type: "Varchar(200)", nullable: true),
                     Direction = table.Column<string>(type: "Varchar(20)", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    NextRoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,8 +95,9 @@ namespace Repository.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleID = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<string>(type: "Varchar(20)", nullable: true),
+                    RoleID = table.Column<int>(type: "int", nullable: false),
+                    RoleName = table.Column<string>(type: "Varchar(50)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -148,8 +150,16 @@ namespace Repository.Migrations
                     CasteCertificateDate = table.Column<DateTime>(type: "DateTime", nullable: false),
                     CasteCertificateNumber = table.Column<string>(type: "Varchar(25)", nullable: true),
                     CasteCertificateIssuingAuthority = table.Column<string>(type: "Varchar(100)", nullable: true),
-                    EducationType = table.Column<string>(type: "Varchar(100)", nullable: true),
+                    ServiceType = table.Column<string>(type: "Varchar(100)", nullable: false),
                     PurpuseType = table.Column<string>(type: "Varchar(100)", nullable: true),
+                    Post = table.Column<string>(type: "Varchar(50)", nullable: false),
+                    Rank = table.Column<string>(type: "Varchar(50)", nullable: false),
+                    OfficerName = table.Column<string>(type: "Varchar(100)", nullable: false),
+                    CourtConttept = table.Column<string>(type: "Varchar(250)", nullable: false),
+                    Tribe = table.Column<string>(type: "Varchar(100)", nullable: true),
+                    ComplainerName = table.Column<string>(type: "Varchar(100)", nullable: false),
+                    RespondentName = table.Column<string>(type: "Varchar(100)", nullable: false),
+                    Evidence = table.Column<string>(type: "Varchar(250)", nullable: false),
                     EntryBy = table.Column<int>(type: "int", nullable: false),
                     EntryDate = table.Column<DateTime>(type: "DateTime", nullable: false),
                     VCCompltedDate = table.Column<DateTime>(type: "DateTime", nullable: false),

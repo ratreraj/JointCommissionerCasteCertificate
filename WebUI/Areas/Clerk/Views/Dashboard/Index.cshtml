@@ -43,7 +43,7 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
 
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -78,7 +78,7 @@
 
                 <td>
 
-                    @Html.ActionLink("Edit","Edit", "Purpose", new { ApplicationId=item.ApplicationId }) |
+                    @Html.ActionLink("Edit","Edit", "Purpose", new { ApplicationId=item.ApplicationId  },new{ @class="btn btn-warning btn-sm"}) 
                     <button type="button" id="@item.ApplicationId" class="btn btn-primary btn-sm Details">Details</button>
                     <button type="button" id="@item.ApplicationId" class="btn btn-primary btn-sm Approve">Approve</button>
                 </td>

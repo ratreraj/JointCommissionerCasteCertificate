@@ -24,13 +24,38 @@ namespace DomainModel
         public string CasteCertificateNumber { get; set; }
         [Required(ErrorMessage = "Please enter Application Caste Certificate Issuing Authority")]
         public string CasteCertificateIssuingAuthority { get; set; }
-        [Required(ErrorMessage = "Please enter Application EducationType")]
-        public string EducationType { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application ServiceType")]
+        public string ServiceType { get; set; }
         [Required(ErrorMessage = "Please enter Application PurpuseType")]
         public string PurpuseType { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application Post")]
+        public string Post { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application Rank")]
+        public string Rank { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application OfficerName")]
+        public string OfficerName { get; set; }
+
+        public string CourtConttept { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application Tribe")]
+        public string Tribe { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application ComplainerName")]
+        public string ComplainerName { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application RespondentName")]
+        public string RespondentName { get; set; }
+
+        [Required(ErrorMessage = "Please enter Application Evidence")]
+        public string Evidence { get; set; }
+
         [Required(ErrorMessage = "Please enter Application Status")]
         public string Status { get; set; }
-        [Required(ErrorMessage = "Please enter Application Remark")]
+
         public string Remark { get; set; }
 
     }

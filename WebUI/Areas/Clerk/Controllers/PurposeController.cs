@@ -15,17 +15,17 @@ namespace WebUI.Areas.Clerk.Controllers
         private readonly IEducationServices _educationServices;
         User user;
         DashboardSetting dashboardSetting;
-        public PurposeController(IMasterServices masterServices, IEducationServices educationServices) 
+        public PurposeController(IMasterServices masterServices, IEducationServices educationServices)
         {
 
             _masterServices=masterServices;
             _educationServices=educationServices;
         }
-        public IActionResult Index()
-        {
-            Onload();
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    Onload();
+        //    return View();
+        //}
 
         public IActionResult Education()
         {
@@ -44,10 +44,48 @@ namespace WebUI.Areas.Clerk.Controllers
         public IActionResult Education(EducationModel model)
         {
             int result = 0;
+            if (model.PurpuseType=="SR" || model.PurpuseType=="PS")
+            {
+
+                //ModelState.Remove("Rank");
+                //ModelState.Remove("Post");
+                //ModelState.Remove("ServiceType");
+                //ModelState.Remove("OfficerName");
+                //ModelState.Remove("ComplainerName");
+                //ModelState.Remove("RespondentName");
+                //ModelState.Remove("Evidence");
+
+            }
+            else
+            {
+                ModelState.Remove("Rank");
+                ModelState.Remove("Post");
+                ModelState.Remove("ServiceType");
+                ModelState.Remove("OfficerName");
+                ModelState.Remove("ComplainerName");
+                ModelState.Remove("RespondentName");
+                ModelState.Remove("Evidence");
+
+
+            }
             if (ModelState.IsValid)
             {
                 user =  HttpContext.Session.GetComplexData<User>("users");
                 result= _educationServices.EducationSave(model, user.Id);
+            }
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Update(EducationModel model)
+        {
+            int result = 0;
+            if (ModelState.IsValid)
+            {
+                user =  HttpContext.Session.GetComplexData<User>("users");
+                result= _educationServices.EducationUpadte(model, user.Id);
             }
 
 
@@ -64,10 +102,11 @@ namespace WebUI.Areas.Clerk.Controllers
             ViewBag.StatusMaster = new SelectList(_masterServices.GetStatusMaster(), "Status", "Description");
             ViewBag.District = new SelectList(_masterServices.GetDistricts(), "DistrictID", "DistictName");
             ViewBag.PurpuseType = new SelectList(_masterServices.GetDDLMaster("PURPOSETYPE"), "ValueFields", "DisplayFields");
-            ViewBag.EducationType = new SelectList(_masterServices.GetDDLMaster("EDUCATION"), "ValueFields", "DisplayFields");
+            ViewBag.Tribe = new SelectList(_masterServices.GetDDLMaster("TRIBE"), "ValueFields", "DisplayFields");
+            ViewBag.ServiceType = new SelectList(_masterServices.GetDDLMaster("SERVICETYPE"), "ValueFields", "DisplayFields");
             // ViewBag.Genders = new List<string>() { "Male", "Female" };
-            ViewBag.City = null;
-            ViewBag.ApplicationId = _educationServices.GetApplicationId();
+            //ViewBag.City = null;
+            ViewData["ApplicationId"] = _educationServices.GetApplicationId();
         }
 
 

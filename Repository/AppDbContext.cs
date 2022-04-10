@@ -109,7 +109,7 @@ namespace Repository
                             CasteCertificateDate = reader.GetString("CasteCertificateDate"),
                             CasteCertificateNumber = reader.GetString("CasteCertificateNumber"),
                             CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority"),
-                            EducationType = reader.GetString("EducationType"),
+                            ServiceType  = reader.GetString("ServiceType"),
                             PurpuseType = reader.GetString("PurpuseType"),
                             Status = reader.GetString("CurrentStatus"),
                             Remark = reader.GetString("Remark")
@@ -153,9 +153,9 @@ namespace Repository
                         educationModel.CasteCertificateNumber = reader.GetString("CasteCertificateNumber");
                         educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
                         educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
-                        educationModel.EducationType = reader.GetString("EducationType");
+                        educationModel.ServiceType = reader.GetString("ServiceType");
                         educationModel.PurpuseType = reader.GetString("PurpuseType");
-                        educationModel.Status = reader.GetString("Status");
+                        educationModel.Status = reader.GetString("CurrentStatus");
                         educationModel.Remark = reader.GetString("Remark");
                     }
                 }
@@ -194,10 +194,11 @@ namespace Repository
                         educationModel.CasteCertificateNumber = reader.GetString("CasteCertificateNumber");
                         educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
                         educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
-                        educationModel.EducationType = reader.GetString("EducationType");
+                        educationModel.ServiceType = reader.GetString("ServiceType");
                         educationModel.PurpuseType = reader.GetString("PurpuseType");
                         educationModel.Status = reader.GetString("CurrentStatus");
                         educationModel.Remark = reader.GetString("Remark");
+                        educationModel.Tribe = reader.GetString("tribe");
                     }
                 }
             }

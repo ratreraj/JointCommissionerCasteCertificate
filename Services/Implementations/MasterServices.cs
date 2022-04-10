@@ -34,7 +34,7 @@ namespace Services.Implementations
 
         public IEnumerable<DDLMaster> GetDDLMaster(string Type)
         {
-            return _dDLMasterRepo.GetAll().Where(x=>x.Categroy==Type);
+            return _dDLMasterRepo.GetAll().Where(x=>x.Categroy==Type).OrderBy(x=>x.ValueFields);
         }
 
         public IEnumerable<Districts> GetDistricts()

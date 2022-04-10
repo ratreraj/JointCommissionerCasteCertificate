@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220313151044_intial003")]
-    partial class intial003
+    [Migration("20220410083225_intial")]
+    partial class intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,9 @@ namespace Repository.Migrations
 
                     b.Property<string>("Direction")
                         .HasColumnType("Varchar(20)");
+
+                    b.Property<int>("NextRoleId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NextStatus")
                         .HasColumnType("Varchar(20)");
@@ -173,10 +176,13 @@ namespace Repository.Migrations
                     b.Property<string>("CasteCertificateNumber")
                         .HasColumnType("Varchar(25)");
 
-                    b.Property<string>("District")
+                    b.Property<string>("ComplainerName")
                         .HasColumnType("Varchar(100)");
 
-                    b.Property<string>("EducationType")
+                    b.Property<string>("CourtConttept")
+                        .HasColumnType("Varchar(250)");
+
+                    b.Property<string>("District")
                         .HasColumnType("Varchar(100)");
 
                     b.Property<int>("EntityTranstionId")
@@ -190,16 +196,37 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("DateTime");
 
-                    b.Property<DateTime>("HearingDate")
+                    b.Property<string>("Evidence")
+                        .HasColumnType("Varchar(250)");
+
+                    b.Property<DateTime?>("HearingDate")
                         .HasColumnType("DateTime");
 
+                    b.Property<string>("OfficerName")
+                        .HasColumnType("Varchar(100)");
+
+                    b.Property<string>("Post")
+                        .HasColumnType("Varchar(50)");
+
                     b.Property<string>("PurpuseType")
+                        .HasColumnType("Varchar(100)");
+
+                    b.Property<string>("Rank")
+                        .HasColumnType("Varchar(50)");
+
+                    b.Property<string>("RespondentName")
+                        .HasColumnType("Varchar(100)");
+
+                    b.Property<string>("ServiceType")
                         .HasColumnType("Varchar(100)");
 
                     b.Property<string>("Taluka")
                         .HasColumnType("Varchar(100)");
 
-                    b.Property<DateTime>("VCCompltedDate")
+                    b.Property<string>("Tribe")
+                        .HasColumnType("Varchar(100)");
+
+                    b.Property<DateTime?>("VCCompltedDate")
                         .HasColumnType("DateTime");
 
                     b.Property<string>("Village")

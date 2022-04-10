@@ -13,7 +13,6 @@ namespace Entities
 
         [Key]
         public string AppId { get; set; }
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EntityTranstionId { get; set; }
 
@@ -36,9 +35,28 @@ namespace Entities
         [Column(TypeName = "Varchar(100)")]
         public string CasteCertificateIssuingAuthority { get; set; }
         [Column(TypeName = "Varchar(100)")]
-        public string EducationType { get; set; }
+        public string ServiceType { get; set; }
         [Column(TypeName = "Varchar(100)")]
         public string PurpuseType { get; set; }
+        [Column(TypeName = "Varchar(50)")]
+        public string Post { get; set; }
+        [Column(TypeName = "Varchar(50)")]
+        public string Rank { get; set; }
+        [Column(TypeName = "Varchar(100)")]
+        public string OfficerName { get; set; }
+        [Column(TypeName = "Varchar(250)")]
+        public string CourtConttept { get; set; }
+        [Column(TypeName = "Varchar(100)")]
+        public string Tribe { get; set; }
+        [Column(TypeName = "Varchar(100)")]
+        public  string ComplainerName { get; set; }
+        [Column(TypeName = "Varchar(100)")]
+        public string RespondentName { get; set; }
+        [Column(TypeName = "Varchar(250)")]
+        public string Evidence { get; set; }
+
+        [Column(TypeName = "Varchar(250)")]
+        public string Remark { get; set; }
 
         [Column(TypeName = "int")]
         public int EntryBy { get; set; }

@@ -1,14 +1,14 @@
 ﻿@model DomainModel.EducationModel
 
 @{
-    ViewData["Title"] = "Education";
+    ViewData["Title"] = Model !=null ? "Update" : "Education";
 }
 <div class="card">
     <div class="card-header">
-        Education Entry From
+        Education Entry From @ViewData["Title"]
     </div>
     <div class="card-body">
-        <form asp-action="Education" class="row g-3">
+        <form asp-action="@ViewData["Title"]" enctype="multipart/form-data" class="row g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group col-md-4">
                 <label asp-for="ApplicationId" class="control-label"></label>
@@ -19,12 +19,76 @@
                     }
                     else
                     {
-                        <input asp-for="ApplicationId" value="@ViewBag.ApplicationId" class="form-control" />
+                        <input asp-for="ApplicationId" value="@ViewData["ApplicationId"]" class="form-control" />
                     }
                 }
 
                 <span asp-validation-for="ApplicationId" class="text-danger"></span>
             </div>
+
+            <div class="form-group col-md-4">
+                <label asp-for="PurpuseType" class="control-label"></label>
+
+                <select asp-for="PurpuseType" class="form-select" asp-items="@ViewBag.PurpuseType">
+                    <option value="">Please select PurpuseType</option>
+                </select>
+                <span asp-validation-for="PurpuseType" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Tribe" class="control-label"></label>
+                <select asp-for="Tribe" class="form-select" asp-items="@ViewBag.Tribe">
+                    <option value="">Please select EducationType</option>
+                </select>
+                <span asp-validation-for="Tribe" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group col-md-3 service-pan">
+                <label asp-for="ServiceType" class="control-label"></label>
+                <select asp-for="ServiceType" class="form-select" asp-items="@ViewBag.ServiceType">
+                    <option value="">Please select EducationType</option>
+                </select>
+                <span asp-validation-for="ServiceType" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group col-md-3 service-pan">
+                <label asp-for="Rank" class="control-label"></label>
+                <input asp-for="Rank" class="form-control" />
+                <span asp-validation-for="Rank" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-3 service-pan">
+                <label asp-for="Post" class="control-label"></label>
+                <input asp-for="Post" class="form-control" />
+                <span asp-validation-for="Post" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-3 service-pan">
+                <label asp-for="OfficerName" class="control-label"></label>
+                <input asp-for="OfficerName" class="form-control" />
+                <span asp-validation-for="OfficerName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group col-md-4 complent-pan">
+                <label asp-for="ComplainerName" class="control-label"></label>
+                <input asp-for="ComplainerName" class="form-control" />
+                <span asp-validation-for="ComplainerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-4 complent-pan">
+                <label asp-for="RespondentName" class="control-label"></label>
+                <input asp-for="RespondentName" class="form-control" />
+                <span asp-validation-for="RespondentName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-4 complent-pan">
+                <label asp-for="Evidence" class="control-label"></label>
+                <input asp-for="Evidence" class="form-control" />
+                <span asp-validation-for="Evidence" class="text-danger"></span>
+            </div>
+
             <div class="form-group col-md-4">
                 <label asp-for="ApplicationRecivedDate" class="control-label"></label>
                 <input asp-for="ApplicationRecivedDate" id="ApplicationRecivedDate" class="form-control" />
@@ -56,10 +120,9 @@
                 <span asp-validation-for="Taluka" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
+
                 <label asp-for="Village" class="control-label"></label>
-                <select asp-for="Village" class="form-select">
-                    <option value="">Please select Village</option>
-                </select>
+                <input asp-for="Village" class="form-control" />
                 <span asp-validation-for="Village" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
@@ -72,38 +135,29 @@
                 <input asp-for="CasteCertificateNumber" class="form-control" />
                 <span asp-validation-for="CasteCertificateNumber" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label asp-for="CasteCertificateIssuingAuthority" class="control-label"></label>
                 <input asp-for="CasteCertificateIssuingAuthority" class="form-control" />
                 <span asp-validation-for="CasteCertificateIssuingAuthority" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-3">
-                <label asp-for="EducationType" class="control-label"></label>
-                <select asp-for="EducationType" class="form-select" asp-items="@ViewBag.EducationType">
-                    <option value="">Please select EducationType</option>
-                </select>
-                <span asp-validation-for="EducationType" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-3">
-                <label asp-for="PurpuseType" class="control-label"></label>
 
-                <select asp-for="PurpuseType" class="form-select" asp-items="@ViewBag.PurpuseType">
-                    <option value="">Please select PurpuseType</option>
-                </select>
-                <span asp-validation-for="PurpuseType" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label asp-for="Status" class="control-label"></label>
-
                 <select asp-for="Status" class="form-select" asp-items="@ViewBag.StatusMaster">
                     <option value="">Please select Status</option>
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label asp-for="Remark" class="control-label"></label>
                 <textarea asp-for="Remark" rows="3" class="form-control"></textarea>
-                <span asp-validation-for="Remark" class="text-danger"></span>
+                @*<span asp-validation-for="Remark" class="text-danger"></span>*@
+            </div>
+
+            <div class="form-group col-md-4">
+                <label asp-for="CourtConttept" class="control-label"></label>
+                <textarea asp-for="CourtConttept" rows="3" class="form-control"></textarea>
+                @* <span asp-validation-for="CourtConttept" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <input type="submit" value="Submit" class="btn btn-primary" />
@@ -118,6 +172,9 @@
 @*
     <partial name="_ValidationScriptsPartial" />*@
 @section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 <script>
 
     $(document).ready(function () {
@@ -127,16 +184,110 @@
                BindTaluka();
             });
 
-             $('#Taluka').change(function () {
-               BindVillages();
+            // $('#Taluka').change(function () {
+            //   BindVillages();
+            //});
+            $('#ApplicationRecivedDate').datepicker({
+            format: 'yyyy-mm-dd'
             });
-                $('#ApplicationRecivedDate').datepicker({
-                format: 'yyyy-mm-dd'
-                });
 
-                 $('#CasteCertificateDate').datepicker({
-                format: 'yyyy-mm-dd'
-                });
+                $('#CasteCertificateDate').datepicker({
+            format: 'yyyy-mm-dd'
+            });
+            $(".service-pan").hide();
+            $(".complent-pan").hide();
+            $('#PurpuseType').change(function () {
+                var ddlsource = "#PurpuseType";
+                if($(ddlsource).val()=="SR" || $(ddlsource).val()=="PS")
+                {
+                    $(".service-pan").show("1000");
+                    $(".complent-pan").hide("1000");
+                        //Need to disable
+                    //$('#Rank').rules('remove');
+                    //$('#Rank-error').text('');
+                    $("#Rank").rules("add", 'required');
+                    $("#Post").rules("add", 'required');
+                    $("#ServiceType").rules("add", 'required');
+                    $("#OfficerName").rules("add", 'required');
+
+                    $('#ComplainerName').rules('remove');
+                    $('#ComplainerName-error').text('');
+
+                    $('#RespondentName').rules('remove');
+                    $('#RespondentName-error').text('');
+
+                    $('#Evidence').rules('remove');
+                    $('#Evidence-error').text('');
+
+                     $("#CasteCertificateDate").rules("add", 'required');
+                     $("#CasteCertificateNumber").rules("add", 'required');
+                     $("#CasteCertificateIssuingAuthority").rules("add", 'required');
+
+                    // Service Pan
+                    //$('#ComplainerName').attr('required', false);
+                    //$('#RespondentName').attr('required', false);
+                    //$('#Evidence').attr('required', false);
+                   // $('#Rank').attr('required', false);
+                    //$('#Rank').removeAttr('required');
+                }
+                else if($(ddlsource).val()=="CL")
+                {
+                     $(".complent-pan").show("1000");
+                     $(".service-pan").hide("1000");
+
+                     $('#Rank').rules('remove');
+                     $('#Rank-error').text('');
+
+                     $('#Post').rules('remove');
+                     $('#Post-error').text('');
+
+                     $('#ServiceType').rules('remove');
+                     $('#ServiceType-error').text('');
+
+                     $('#OfficerName').rules('remove');
+                     $('#OfficerName-error').text('');
+
+                     $('#CasteCertificateDate').rules('remove');
+                     $('#CasteCertificateDate-error').text('');
+
+                     $('#CasteCertificateNumber').rules('remove');
+                     $('#OfficerName-error').text('');
+
+                     $('#CasteCertificateIssuingAuthority').rules('remove');
+                     $('#CasteCertificateIssuingAuthority-error').text('');
+
+                     $("#ComplainerName").rules("add", 'required');
+                     $("#RespondentName").rules("add", 'required');
+                     $("#Evidence").rules("add", 'required');
+                }
+                else
+                {
+                    $(".complent-pan").hide("1000");
+                    $(".service-pan").hide("1000");
+                    $('#Rank').rules('remove');
+                    $('#Rank-error').text('');
+
+                    $('#Post').rules('remove');
+                    $('#Post-error').text('');
+
+                    $('#ServiceType').rules('remove');
+                    $('#ServiceType-error').text('');
+
+                    $('#OfficerName').rules('remove');
+                    $('#OfficerName-error').text('');
+
+                    $('#ComplainerName').rules('remove');
+                    $('#ComplainerName-error').text('');
+
+                    $('#RespondentName').rules('remove');
+                    $('#RespondentName-error').text('');
+
+                    $('#Evidence').rules('remove');
+                    $('#Evidence-error').text('');
+
+                }
+
+            });
             //var UserId = $('#UserId').val();
             //if (UserId != null)
             //{
@@ -187,5 +338,9 @@
 
                 });
                 }
+
+
 </script>
+
+
 }

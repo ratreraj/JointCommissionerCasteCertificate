@@ -2,22 +2,22 @@
 
 namespace Repository.Migrations
 {
-    public partial class intial002 : Migration
+    public partial class intial001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "RoleName",
-                table: "dashboardSetting",
-                type: "nvarchar(max)",
-                nullable: true);
+                name: "Remark",
+                table: "educations",
+                type: "Varchar(250)",
+                nullable: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "RoleName",
-                table: "dashboardSetting");
+                name: "Remark",
+                table: "educations");
         }
     }
 }
