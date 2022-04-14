@@ -5,6 +5,7 @@ using Services.Interfaces;
 using System.Linq;
 using WebUI.Models;
 using WebUI.Helpers;
+using System.Threading.Tasks;
 
 namespace WebUI.Controllers
 {
@@ -59,6 +60,23 @@ namespace WebUI.Controllers
 
             }
 
+            return View();
+        }
+
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _authenticationService.SignOut();
+            return RedirectToAction("LogOutComplete");
+        }
+
+        public IActionResult LogOutComplete()
+        {
+            return View();
+        }
+
+        public IActionResult Unauthorize()
+        {
             return View();
         }
 

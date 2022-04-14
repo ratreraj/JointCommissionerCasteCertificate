@@ -21,15 +21,16 @@ namespace WebUI.Areas.Clerk.Controllers
             _masterServices=masterServices;
             _educationServices=educationServices;
         }
-        //public IActionResult Index()
-        //{
-        //    Onload();
-        //    return View();
-        //}
+        public IActionResult Index()
+        {
+            Onload();
+            return View();
+        }
 
         public IActionResult Education()
         {
             Onload();
+            ViewBag.Taluka = null;
             return View();
         }
 
@@ -37,6 +38,7 @@ namespace WebUI.Areas.Clerk.Controllers
         {
             Onload();
             EducationModel educationModel = _educationServices.GetEducationById(ApplicationId);
+            ViewBag.Taluka= educationModel.Taluka;
             return View("Education", educationModel);
         }
 
@@ -44,34 +46,16 @@ namespace WebUI.Areas.Clerk.Controllers
         public IActionResult Education(EducationModel model)
         {
             int result = 0;
-            if (model.PurpuseType=="SR" || model.PurpuseType=="PS")
-            {
-
-                //ModelState.Remove("Rank");
-                //ModelState.Remove("Post");
-                //ModelState.Remove("ServiceType");
-                //ModelState.Remove("OfficerName");
-                //ModelState.Remove("ComplainerName");
-                //ModelState.Remove("RespondentName");
-                //ModelState.Remove("Evidence");
-
-            }
-            else
-            {
-                ModelState.Remove("Rank");
-                ModelState.Remove("Post");
-                ModelState.Remove("ServiceType");
-                ModelState.Remove("OfficerName");
-                ModelState.Remove("ComplainerName");
-                ModelState.Remove("RespondentName");
-                ModelState.Remove("Evidence");
-
-
-            }
+            Validation(model);
             if (ModelState.IsValid)
             {
                 user =  HttpContext.Session.GetComplexData<User>("users");
                 result= _educationServices.EducationSave(model, user.Id);
+
+                if (result!=0)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
             }
 
 
@@ -79,13 +63,19 @@ namespace WebUI.Areas.Clerk.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(EducationModel model)
+        public IActionResult Edit(EducationModel model)
         {
             int result = 0;
+            Validation(model);
             if (ModelState.IsValid)
             {
                 user =  HttpContext.Session.GetComplexData<User>("users");
                 result= _educationServices.EducationUpadte(model, user.Id);
+
+                if (result!=0)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
             }
 
 
@@ -105,7 +95,7 @@ namespace WebUI.Areas.Clerk.Controllers
             ViewBag.Tribe = new SelectList(_masterServices.GetDDLMaster("TRIBE"), "ValueFields", "DisplayFields");
             ViewBag.ServiceType = new SelectList(_masterServices.GetDDLMaster("SERVICETYPE"), "ValueFields", "DisplayFields");
             // ViewBag.Genders = new List<string>() { "Male", "Female" };
-            //ViewBag.City = null;
+            
             ViewData["ApplicationId"] = _educationServices.GetApplicationId();
         }
 
@@ -140,6 +130,38 @@ namespace WebUI.Areas.Clerk.Controllers
                 return Json(new SelectList(string.Empty, "VillageId", "VillageName"));
             }
 
+        }
+
+        public void Validation(EducationModel model)
+        {
+            if (model.PurpuseType=="SR" || model.PurpuseType=="PS")
+            {
+
+
+                ModelState.Remove("ComplainerName");
+                ModelState.Remove("RespondentName");
+                ModelState.Remove("Evidence");
+
+            }
+            else if (model.PurpuseType=="CL")
+            {
+                ModelState.Remove("Rank");
+                ModelState.Remove("Post");
+                ModelState.Remove("ServiceType");
+                ModelState.Remove("OfficerName");
+            }
+            else
+            {
+                ModelState.Remove("Rank");
+                ModelState.Remove("Post");
+                ModelState.Remove("ServiceType");
+                ModelState.Remove("OfficerName");
+                ModelState.Remove("ComplainerName");
+                ModelState.Remove("RespondentName");
+                ModelState.Remove("Evidence");
+
+
+            }
         }
 
     }

@@ -106,7 +106,8 @@ namespace Services.Implementations
                 EntryBy=userId,
                 EntryDate = System.DateTime.Now,
             };
-            _educationRepo.Update(data);
+            _educationRepo.UpdateIgnore(data, "EntityTranstionId");
+            //_educationRepo.Update(data.EntityTranstionId)
             return _educationRepo.SaveChange();
         }
 

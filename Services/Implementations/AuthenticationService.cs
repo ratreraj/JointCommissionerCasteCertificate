@@ -39,12 +39,12 @@ namespace Services.Implementations
 
         }
 
-        public bool CreateUser(User user, string Password,string role)
+        public bool CreateUser(User user, string Password, string role)
         {
             var result = _userManager.CreateAsync(user, Password).Result;
             if (result.Succeeded)
             {
-               // string role = "Admin";
+                // string role = "Admin";
                 var res = _userManager.AddToRoleAsync(user, role).Result;
                 if (res.Succeeded)
                 {
@@ -64,10 +64,17 @@ namespace Services.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<bool> SingOut()
+        public async Task<bool> SignOut()
         {
-            throw new NotImplementedException();
-
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

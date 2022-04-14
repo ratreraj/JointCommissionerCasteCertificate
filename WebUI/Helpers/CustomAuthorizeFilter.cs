@@ -12,17 +12,26 @@ namespace WebUI.Helpers
         public string Roles { get; set; }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (context.HttpContext.User.Identity.IsAuthenticated)
-            {
-                if (!context.HttpContext.User.IsInRole(Roles))
+
+            //if (context.Result!=null)
+            //{
+                if (context.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    context.Result = new RedirectToActionResult("UnAuthorize", "Account", new { area = "" });
+                    if (!context.HttpContext.User.IsInRole(Roles))
+                    {
+                        context.Result = new RedirectToActionResult("UnAuthorize", "Login", new { area = "" });
+                    }
                 }
-            }
-            else
-            {
-                context.Result = new RedirectToActionResult("Login", "Account", new { area = "" });
-            }
+                else
+                {
+                    context.Result = new RedirectToActionResult("SignIn", "Login", new { area = "" });
+                }
+            //}
+            //else
+            //{
+            //    context.Result = new RedirectToActionResult("SignIn", "Login", new { area = "" });
+            //}
+            
         }
     }
 }

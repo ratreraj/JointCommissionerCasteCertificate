@@ -78,7 +78,7 @@
 
                 <td>
 
-                    @Html.ActionLink("Edit","Edit", "Purpose", new { ApplicationId=item.ApplicationId  },new{ @class="btn btn-warning btn-sm"}) 
+                    @Html.ActionLink("Edit","Edit", "Purpose", new { ApplicationId=item.ApplicationId  },new{ @class="btn btn-warning btn-sm"})
                     <button type="button" id="@item.ApplicationId" class="btn btn-primary btn-sm Details">Details</button>
                     <button type="button" id="@item.ApplicationId" class="btn btn-primary btn-sm Approve">Approve</button>
                 </td>
@@ -93,7 +93,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Application Details </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -124,7 +124,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Approver Action</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -195,8 +195,8 @@
                     $("#Usersdata").empty();
                     items += "<option value=''>Please Select User</option>";
                     $.each(data, function (i, D) {
-                        console.log(data);
-                        console.log(D);
+                        //console.log(data);
+                        //console.log(D);
                      items += "<option value='" + D.value + "'>" + D.text + "</option>";
                     });
                     $('#Usersdata').html(items);
@@ -255,14 +255,14 @@
                 data: d,
                 success: function (result) {
 
-                console.log(result);
+              //  console.log(result);
                     var row = "";
                     row+="<tr><td>Application Id - </td><td>" +  result.applicationId + "</td> <td>Application Recived Date - </td><td>" + result.applicationRecivedDate + "</td></tr>";
-                    row+="<tr><td>Application Name - </td><td>" + result.applicationName + "</td><td>Case Id - <td><td>" + result.caseId + "</td></tr>";
+                    row+="<tr><td>Application Name - </td><td>" + result.applicationName + "</td><td>Case Id - </td><td>" + result.caseId + "</td></tr>";
                     row+="<tr><td>Village - </td><td>" + result.village + "</td><td>Taluka - </td><td>" + result.taluka + "</td></tr>";
                     row+="<tr><td>District - </td><td>" + result.district + "</td><td>Caste Certificate Date - </td><td>" + result.casteCertificateDate + "</td></tr>";
-                    row+="<tr><td>Caste Certificate Number - </td><td>" + result.casteCertificateNumber + "</td><td>Caste Certificate Issuing Authority - <td><td>" + result.casteCertificateIssuingAuthority + "</td></tr>";
-                    row+="<tr><td>Education Type - </td><td>" + result.educationType + "</td><td>PurpuseType - </td><td>" + result.purpuseType + "</td></tr>";
+                    row+="<tr><td>Caste Certificate Number - </td><td>" + result.casteCertificateNumber + "</td><td>Caste Certificate Issuing Authority - </td><td>" + result.casteCertificateIssuingAuthority + "</td></tr>";
+                    row+="<tr><td>Service Type - </td><td>" + result.serviceType + "</td><td>PurpuseType - </td><td>" + result.purpuseType + "</td></tr>";
                     row+="<tr><td>Status - </td><td>" + result.status + "</td><td>Remark - </td><td>" + result.remark + "</td></tr>";
 
                     $("#output").html(row);
@@ -280,7 +280,7 @@
               {
 
                 var d = { "appId": appId };
-                alert(JSON.stringify(d));
+                //alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
@@ -289,10 +289,13 @@
                 data: d,
                 success: function (result) {
 
-                console.log(result);
+                //console.log(result);
+
+
+                   $("#tbHistory tr").detach();
 
                     for (var i = 0; i < result.length; i++) {
-                    $("#tbHistory").append("<tr><td>" + result[i].applicationId + "</td><td>" + result[i].currentStatus + "</td><td>" + result[i].currentDate + "</td> <td>" + result[i].perviousStatus + "</td> <td>" + result[i].perviousDate + "</td></tr>");
+                    $("#tbHistory").append("<tr><td>" + result[i].applicationId + "</td><td>" + result[i].currentStatus + "</td><td>" +  result[i].currentDate + "</td> <td>" + result[i].perviousStatus + "</td> <td>" + result[i].perviousDate + "</td></tr>");
                     }
 
                 },

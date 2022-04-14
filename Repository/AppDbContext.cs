@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using DomainModel;
+using Repository.Helper;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Repository
 {
@@ -46,6 +48,14 @@ namespace Repository
 
             base.OnConfiguring(optionsBuilder);
         }
+
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity(Education)
+        //        .Property(x => x.EntityTranstionId)
+        //        .UseIdentityColumn().Metadata.SetBeforeSaveBehavior= PropertySaveBehavior.Ignore
+        //}
 
         public string GetApplicationId()
         {
@@ -149,14 +159,25 @@ namespace Repository
                         educationModel.Village = reader.GetString("Village");
                         educationModel.Taluka = reader.GetString("Taluka");
                         educationModel.District = reader.GetString("District");
-                        educationModel.CasteCertificateDate = reader.GetString("CasteCertificateDate");
-                        educationModel.CasteCertificateNumber = reader.GetString("CasteCertificateNumber");
-                        educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
-                        educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
-                        educationModel.ServiceType = reader.GetString("ServiceType");
+                        educationModel.CasteCertificateDate = reader.IsDBNull("CasteCertificateDate") ? string.Empty : reader.GetString("CasteCertificateDate");
+                        educationModel.CasteCertificateNumber = reader.IsDBNull("CasteCertificateNumber") ? string.Empty : reader.GetString("CasteCertificateNumber");
+                        educationModel.CasteCertificateIssuingAuthority  = reader.IsDBNull("CasteCertificateIssuingAuthority") ? string.Empty : reader.GetString("CasteCertificateIssuingAuthority");
+                        educationModel.ServiceType = reader.IsDBNull("ServiceType") ? string.Empty : reader.GetString("ServiceType");
+                        educationModel.Tribe = reader.IsDBNull("Tribe") ? string.Empty : reader.GetString("Tribe");
                         educationModel.PurpuseType = reader.GetString("PurpuseType");
                         educationModel.Status = reader.GetString("CurrentStatus");
-                        educationModel.Remark = reader.GetString("Remark");
+                        educationModel.Remark =  reader.IsDBNull("ServiceType") ? string.Empty : reader.GetString("Remark");
+                        educationModel.Rank =  reader.IsDBNull("Rank") ? string.Empty : reader.GetString("Rank");
+                        educationModel.Post =  reader.IsDBNull("Post") ? string.Empty : reader.GetString("Post");
+                        educationModel.OfficerName =  reader.IsDBNull("OfficerName") ? string.Empty : reader.GetString("OfficerName");
+                        educationModel.ComplainerName =  reader.IsDBNull("ComplainerName") ? string.Empty : reader.GetString("ComplainerName");
+                        educationModel.RespondentName =  reader.IsDBNull("RespondentName") ? string.Empty : reader.GetString("RespondentName");
+                        educationModel.Evidence =  reader.IsDBNull("Evidence") ? string.Empty : reader.GetString("Evidence");
+                        educationModel.CourtConttept =  reader.IsDBNull("CourtConttept") ? string.Empty : reader.GetString("CourtConttept");
+
+
+
+
                     }
                 }
             }
@@ -190,15 +211,22 @@ namespace Repository
                         educationModel.Village = reader.GetString("Village");
                         educationModel.Taluka = reader.GetString("Taluka");
                         educationModel.District = reader.GetString("District");
-                        educationModel.CasteCertificateDate = reader.GetString("CasteCertificateDate");
-                        educationModel.CasteCertificateNumber = reader.GetString("CasteCertificateNumber");
-                        educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
-                        educationModel.CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority");
-                        educationModel.ServiceType = reader.GetString("ServiceType");
+                        educationModel.CasteCertificateDate = reader.IsDBNull("CasteCertificateDate") ? string.Empty : reader.GetString("CasteCertificateDate");
+                        educationModel.CasteCertificateNumber = reader.IsDBNull("CasteCertificateNumber") ? string.Empty : reader.GetString("CasteCertificateNumber");
+                        educationModel.CasteCertificateIssuingAuthority  = reader.IsDBNull("CasteCertificateIssuingAuthority") ? string.Empty : reader.GetString("CasteCertificateIssuingAuthority");
+                        educationModel.ServiceType = reader.IsDBNull("ServiceType") ? string.Empty : reader.GetString("ServiceType");
+                        educationModel.Tribe = reader.IsDBNull("Tribe") ? string.Empty : reader.GetString("Tribe");
                         educationModel.PurpuseType = reader.GetString("PurpuseType");
                         educationModel.Status = reader.GetString("CurrentStatus");
-                        educationModel.Remark = reader.GetString("Remark");
-                        educationModel.Tribe = reader.GetString("tribe");
+                        educationModel.Remark =  reader.IsDBNull("ServiceType") ? string.Empty : reader.GetString("Remark");
+                        educationModel.Rank =  reader.IsDBNull("Rank") ? string.Empty : reader.GetString("Rank");
+                        educationModel.Post =  reader.IsDBNull("Post") ? string.Empty : reader.GetString("Post");
+                        educationModel.OfficerName =  reader.IsDBNull("OfficerName") ? string.Empty : reader.GetString("OfficerName");
+                        educationModel.ComplainerName =  reader.IsDBNull("ComplainerName") ? string.Empty : reader.GetString("ComplainerName");
+                        educationModel.RespondentName =  reader.IsDBNull("RespondentName") ? string.Empty : reader.GetString("RespondentName");
+                        educationModel.Evidence =  reader.IsDBNull("Evidence") ? string.Empty : reader.GetString("Evidence");
+                        educationModel.CourtConttept =  reader.IsDBNull("CourtConttept") ? string.Empty : reader.GetString("CourtConttept");
+
                     }
                 }
             }

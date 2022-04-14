@@ -52,8 +52,15 @@ namespace Repository.Implementations
         public void Update(TEntity entity)
         {
             _db.Set<TEntity>().Update(entity);
+
         }
 
-       
+        public void UpdateIgnore(TEntity entity, string ignoreCol)
+        {
+            _db.Entry(entity).State = EntityState.Modified;
+            _db.Entry(entity).Property(ignoreCol).IsModified= false;
+        }
+
+
     }
 }

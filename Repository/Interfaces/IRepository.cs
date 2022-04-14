@@ -13,6 +13,8 @@ namespace Repository.Interfaces
         TEntity FindById(object Id);
         void Add(TEntity entity);
         void Update(TEntity entity);
+        void UpdateIgnore(TEntity entity, string ignoreCol);
+
         void Remove(TEntity entity);
         void Delete(object id);
         int SaveChange();

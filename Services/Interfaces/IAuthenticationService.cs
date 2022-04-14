@@ -10,7 +10,7 @@ namespace Services.Interfaces
     public interface IAuthenticationService
     {
         bool CreateUser(User user, string Password,string role);
-        Task<bool> SingOut();
+        Task<bool> SignOut();
         User AuthenticateUser(string UserName, string Password);
         User GetUser(string UersName);
     }

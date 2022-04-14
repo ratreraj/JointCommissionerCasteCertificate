@@ -233,7 +233,7 @@
                 var Remark = "#Remark";
                 var UserId =@user.Id;
                 var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusStatusDirection").val(),"remark":$("#Remark").val(),"userId":$("#Users").val() };
-                alert(JSON.stringify(d));
+                //alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
@@ -261,7 +261,7 @@
             {
 
                 var d = { "appId": appId };
-                alert(JSON.stringify(d));
+               // alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
@@ -294,7 +294,7 @@
               {
 
                 var d = { "appId": appId };
-                alert(JSON.stringify(d));
+                //alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
@@ -303,7 +303,9 @@
                 data: d,
                 success: function (result) {
 
-                console.log(result);
+                //console.log(result);
+
+                 $("#tbHistory tr").detach();
 
                     for (var i = 0; i < result.length; i++) {
                     $("#tbHistory").append("<tr><td>" + result[i].applicationId + "</td><td>" + result[i].currentStatus + "</td><td>" + result[i].currentDate + "</td> <td>" + result[i].perviousStatus + "</td> <td>" + result[i].perviousDate + "</td></tr>");

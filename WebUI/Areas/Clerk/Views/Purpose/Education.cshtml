@@ -1,14 +1,14 @@
 ﻿@model DomainModel.EducationModel
 
 @{
-    ViewData["Title"] = Model !=null ? "Update" : "Education";
+    ViewData["Title"] = Model !=null ? "Edit" : "Education";
 }
 <div class="card">
     <div class="card-header">
-        Education Entry From @ViewData["Title"]
+        Case Entry Form
     </div>
     <div class="card-body">
-        <form asp-action="@ViewData["Title"]" enctype="multipart/form-data" class="row g-3">
+        <form asp-action="@ViewData["Title"]" enctype="multipart/form-data" method="post" class="row g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group col-md-4">
                 <label asp-for="ApplicationId" class="control-label"></label>
@@ -30,14 +30,14 @@
                 <label asp-for="PurpuseType" class="control-label"></label>
 
                 <select asp-for="PurpuseType" class="form-select" asp-items="@ViewBag.PurpuseType">
-                    <option value="">Please select PurpuseType</option>
+                    <option value="">Please select Purpose Type</option>
                 </select>
                 <span asp-validation-for="PurpuseType" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="Tribe" class="control-label"></label>
                 <select asp-for="Tribe" class="form-select" asp-items="@ViewBag.Tribe">
-                    <option value="">Please select EducationType</option>
+                    <option value="">Please select Tribe</option>
                 </select>
                 <span asp-validation-for="Tribe" class="text-danger"></span>
             </div>
@@ -46,7 +46,7 @@
             <div class="form-group col-md-3 service-pan">
                 <label asp-for="ServiceType" class="control-label"></label>
                 <select asp-for="ServiceType" class="form-select" asp-items="@ViewBag.ServiceType">
-                    <option value="">Please select EducationType</option>
+                    <option value="">Please select Service Type</option>
                 </select>
                 <span asp-validation-for="ServiceType" class="text-danger"></span>
             </div>
@@ -180,9 +180,16 @@
     $(document).ready(function () {
             var items = "<option value=''>Please Select Taluka</option>";
             $('#Taluka').html(items);
-            $('#District').change(function () {
+             $('#District').change(function () {
                BindTaluka();
             });
+             var ddlsource = "#District";
+            if( $(ddlsource).val()!='')
+            {
+                BindTaluka();
+
+            }
+
 
             // $('#Taluka').change(function () {
             //   BindVillages();
@@ -314,11 +321,19 @@
                     //if (_cityval != null) {
                     //    $('#City').val(_cityval);
                     //}
+                    //if (Model!=null)
+                    //{
+                        var _cityval = @(ViewBag.Taluka!=null? Html.Raw(ViewBag.Taluka) : Html.Raw("undefined"));
+                        if (_cityval != null) {
+                            console.log(_cityval);
+                            $('#Taluka').val(_cityval);
+                        }
+                    
 
                 });
                 }
 
-           function BindVillages() {
+           function BindVillages(slected) {
             var url = '@Url.Content("~/")' + "Clerk/Purpose/GetVillagesList";
                 var ddlsource = "#Taluka";
                 $.post(url, { TalukaId: $(ddlsource).val() }, function (data) {
@@ -331,10 +346,7 @@
                     $('#Village').html(items);
 
                     //
-                    //var _cityval = @(ViewBag.City!=null? Html.Raw(ViewBag.City) : Html.Raw("undefined"));
-                    //if (_cityval != null) {
-                    //    $('#City').val(_cityval);
-                    //}
+
 
                 });
                 }

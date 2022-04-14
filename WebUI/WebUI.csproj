@@ -23,6 +23,7 @@
     <Folder Include="Areas\Officer\Models\" />
     <Folder Include="Areas\PI\Data\" />
     <Folder Include="Areas\PI\Models\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>
