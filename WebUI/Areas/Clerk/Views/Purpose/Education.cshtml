@@ -150,7 +150,9 @@
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="Remark" class="control-label"></label>
+
                 <textarea asp-for="Remark" rows="3" class="form-control"></textarea>
+
                 @*<span asp-validation-for="Remark" class="text-danger"></span>*@
             </div>
 
@@ -189,8 +191,8 @@
                 BindTaluka();
 
             }
-
-
+              $('#ApplicationId').attr('readonly', 'true');
+             //$("#ApplicationId").prop("disabled", true);
             // $('#Taluka').change(function () {
             //   BindVillages();
             //});
@@ -203,8 +205,23 @@
             });
             $(".service-pan").hide();
             $(".complent-pan").hide();
+            ControlVisiblity();
             $('#PurpuseType').change(function () {
-                var ddlsource = "#PurpuseType";
+               ControlVisiblity();
+
+            });
+            //var UserId = $('#UserId').val();
+            //if (UserId != null)
+            //{
+            //    console.log(UserId);
+            //    BindCity();
+
+            //}
+        });
+
+
+        function ControlVisiblity(){
+         var ddlsource = "#PurpuseType";
                 if($(ddlsource).val()=="SR" || $(ddlsource).val()=="PS")
                 {
                     $(".service-pan").show("1000");
@@ -293,16 +310,7 @@
                     $('#Evidence-error').text('');
 
                 }
-
-            });
-            //var UserId = $('#UserId').val();
-            //if (UserId != null)
-            //{
-            //    console.log(UserId);
-            //    BindCity();
-
-            //}
-        });
+        }
 
          function BindTaluka() {
             var url = '@Url.Content("~/")' + "Clerk/Purpose/GetTalukaList";
@@ -328,7 +336,7 @@
                             console.log(_cityval);
                             $('#Taluka').val(_cityval);
                         }
-                    
+
 
                 });
                 }

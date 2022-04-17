@@ -118,7 +118,6 @@
     </div>
 </div>
 
-
 <!-- Modal -->
 <div class="modal fade" id="MyApprovalModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -128,12 +127,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="ApproveFrom" role="form">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Direction</label>
                         <label class="control-label"></label>
 
-                        <select class="form-select" id="StatusStatusDirection" asp-items="@ViewBag.StatusDirection">
+                        <select class="form-select" required="required" id="StatusStatusDirection" asp-items="@ViewBag.StatusDirection">
                             <option value="">Please select Direction</option>
                         </select>
                         @* <span asp-validation-for="Status" class="text-danger"></span>*@
@@ -153,7 +152,7 @@
                         <label for="formGroupExampleInput" class="form-label">Users</label>
                         <label class="control-label"></label>
 
-                        <select class="form-select" id="Usersdata">
+                        <select class="form-select" required="required" id="Usersdata">
                             <option value="">Please select User</option>
                         </select>
                         @* <span asp-validation-for="Status" class="text-danger"></span>*@
@@ -162,7 +161,7 @@
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Remark</label>
                         <label class="control-label"></label>
-                        <input id="Remark" class="form-control" />
+                        <input id="Remark" required="required" class="form-control" />
                     </div>
                 </form>
             </div>
@@ -213,12 +212,21 @@
 
             function Approve()
             {
+                //$("#ApproveFrom").submit(function(e) {
+
+                //     e.preventDefault();
+
+
+
                 var status = "#StatusMaster";
                 var AppId = "#AppId";
                 var Remark = "#Remark";
                 var UserId =@user.Id;
+                if($("#StatusStatusDirection").val()!="" && $("#Usersdata").val()!="" && $("#Remark").val()!="")
+                {
+
                 var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusStatusDirection").val(),"remark":$("#Remark").val(),"userId":$("#Usersdata").val() };
-                alert(JSON.stringify(d));
+              //  alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
@@ -238,6 +246,13 @@
                 error: function (result) {
                 },
             });
+            //return false;
+            //});
+            }
+            else
+            {
+                alert("Plesae select Direction , Users and enter remark");
+            }
 
             }
 
@@ -246,7 +261,7 @@
             {
 
                 var d = { "appId": appId };
-                alert(JSON.stringify(d));
+               // alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
@@ -324,7 +339,7 @@
             $(".Approve").on('click',function(e)
             {
                 var id = this.id;
-                alert(id);
+               // alert(id);
                 $('#AppIdValue').val(id);
 
                 $('#MyApprovalModal').modal('show');

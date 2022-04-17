@@ -230,6 +230,8 @@
                 var AppId = "#AppId";
                 var Remark = "#Remark";
                 var UserId =@user.Id;
+                 if($("#StatusStatusDirection").val()!="" && $("#Usersdata").val()!="" && $("#Remark").val()!="")
+                {
                 var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusStatusDirection").val(),"remark":$("#Remark").val(),"userId":$("#Users").val() };
                // alert(JSON.stringify(d));
                 $.ajax({
@@ -251,6 +253,12 @@
                 error: function (result) {
                 },
             });
+
+            }
+             else
+            {
+                alert("Plesae select Direction , Users and enter remark");
+            }
 
             }
 
@@ -332,7 +340,7 @@
             $(".Approve").on('click',function(e)
             {
                 var id = this.id;
-                alert(id);
+                //alert(id);
                  $('#AppIdValue').val(id);
                 $('#MyApprovalModal').modal('show');
             });

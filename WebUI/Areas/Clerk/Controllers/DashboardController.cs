@@ -1,9 +1,11 @@
 ﻿using DomainModel;
 using Entities;
+using Fingers10.ExcelExport.ActionResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Services.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebUI.Helpers;
 
 namespace WebUI.Areas.Clerk.Controllers
@@ -37,6 +39,22 @@ namespace WebUI.Areas.Clerk.Controllers
 
         }
 
+
+        public async Task<IActionResult> Report()
+        {
+
+            var data = await _educationServices.GetEducationExport();
+            return View(data);
+        }
+
+
+        public async Task<IActionResult> ExportReport()
+        {
+            var data = await _educationServices.GetEducationExport();
+
+
+            return new ExcelResult<EducationReport>(data, "Demo Sheet Name", "Fingers10");
+        }
 
         [HttpPost]
         public JsonResult GetDetails(string appId)

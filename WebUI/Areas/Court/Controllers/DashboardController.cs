@@ -51,6 +51,15 @@ namespace WebUI.Areas.Court.Controllers
         }
 
 
+        public IActionResult Report()
+        {
+            Onload();
+            var data = _educationServices.GetEducationDetails(user.Id, dashboardSetting.Status);
+            return View(data);
+        }
+
+
+
         [HttpPost]
         public JsonResult Approve(string appId, string status, string remark, int userId)
         {

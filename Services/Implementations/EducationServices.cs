@@ -32,7 +32,7 @@ namespace Services.Implementations
             {
                 AppId= model.ApplicationId,
                 ApplicationRecivedDate= Convert.ToDateTime(model.ApplicationRecivedDate),
-                ApplicationName= model.ApplicationName,               
+                ApplicationName= model.ApplicationName,
                 PurpuseType =  model.PurpuseType,
                 Tribe = model.Tribe,
                 ServiceType= model.ServiceType,
@@ -48,12 +48,12 @@ namespace Services.Implementations
                 District = model.District,
                 CasteCertificateDate= Convert.ToDateTime(model.CasteCertificateDate),
                 CasteCertificateNumber= model.CasteCertificateNumber,
-                CasteCertificateIssuingAuthority= model.CasteCertificateIssuingAuthority,  
+                CasteCertificateIssuingAuthority= model.CasteCertificateIssuingAuthority,
                 Remark = model.Remark,
                 CourtConttept= model.CourtConttept,
                 EntryBy=userId,
                 EntryDate = System.DateTime.Now,
-                
+
             };
             _educationRepo.Add(data);
             ApplicationStatus applicationStatus = new ApplicationStatus
@@ -132,6 +132,11 @@ namespace Services.Implementations
             return _appDbContext.GetEducation(userid, status);
         }
 
+        public async Task<IEnumerable<EducationReport>> GetEducationExport()
+        {
+            return await _appDbContext.GetEducationExport();
+        }
+
         public int UpdateApplicationStatus(ApplicationStatus model, int userId)
         {
             int result = 0;
@@ -160,7 +165,7 @@ namespace Services.Implementations
 
         public IEnumerable<StatusHistory> GetStatusHistory(string AppId)
         {
-           return _appDbContext.GetHistory(AppId);
+            return _appDbContext.GetHistory(AppId);
         }
     }
 }

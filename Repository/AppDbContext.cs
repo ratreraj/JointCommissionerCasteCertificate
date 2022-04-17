@@ -134,6 +134,57 @@ namespace Repository
             return educationList;
         }
 
+        public async Task<IEnumerable<EducationReport>> GetEducationExport()
+        {
+            List<EducationReport> educationList = new List<EducationReport>();
+
+            using (var cmd = Database.GetDbConnection().CreateCommand())
+            {
+
+                cmd.CommandText ="GetEducationExport";
+                cmd.CommandType= System.Data.CommandType.StoredProcedure;
+                // Sql Parameters 
+                //SqlParameter UserId = new SqlParameter("@UserId", userid);
+                //cmd.Parameters.Add(UserId);
+                //SqlParameter Status = new SqlParameter("@CurrentStatus", status);
+                //cmd.Parameters.Add(Status);
+
+
+                await Database.OpenConnectionAsync();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    //await reader.ReadAsync();
+                    while (reader.Read())
+                    {
+                        EducationReport education = new EducationReport
+                        {
+
+
+                            ApplicationId =  reader.GetString("AppId"),
+                            ApplicationRecivedDate =  reader.GetString("ApplicationRecivedDate"),
+                            ApplicationName = reader.GetString("ApplicationName"),
+                            CaseId = reader.GetString("CaseId"),
+                            Village = reader.GetString("Village"),
+                            Taluka = reader.GetString("Taluka"),
+                            District = reader.GetString("District"),
+                            CasteCertificateDate = reader.GetString("CasteCertificateDate"),
+                            CasteCertificateNumber = reader.GetString("CasteCertificateNumber"),
+                            CasteCertificateIssuingAuthority = reader.GetString("CasteCertificateIssuingAuthority"),
+                            ServiceType  = reader.GetString("ServiceType"),
+                            PurpuseType = reader.GetString("PurpuseType"),
+                            Status = reader.GetString("CurrentStatus"),
+                            Remark = reader.GetString("Remark")
+                        };
+                        educationList.Add(education);
+
+                    }
+                }
+            }
+
+            Database.CloseConnection();
+            return educationList;
+        }
+
         public EducationModel GetEducationById(string ApplicationId)
         {
             EducationModel educationModel = new EducationModel();
@@ -166,7 +217,7 @@ namespace Repository
                         educationModel.Tribe = reader.IsDBNull("Tribe") ? string.Empty : reader.GetString("Tribe");
                         educationModel.PurpuseType = reader.GetString("PurpuseType");
                         educationModel.Status = reader.GetString("CurrentStatus");
-                        educationModel.Remark =  reader.IsDBNull("ServiceType") ? string.Empty : reader.GetString("Remark");
+                        educationModel.Remark =  reader.IsDBNull("Remark") ? string.Empty : reader.GetString("Remark");
                         educationModel.Rank =  reader.IsDBNull("Rank") ? string.Empty : reader.GetString("Rank");
                         educationModel.Post =  reader.IsDBNull("Post") ? string.Empty : reader.GetString("Post");
                         educationModel.OfficerName =  reader.IsDBNull("OfficerName") ? string.Empty : reader.GetString("OfficerName");
@@ -218,7 +269,7 @@ namespace Repository
                         educationModel.Tribe = reader.IsDBNull("Tribe") ? string.Empty : reader.GetString("Tribe");
                         educationModel.PurpuseType = reader.GetString("PurpuseType");
                         educationModel.Status = reader.GetString("CurrentStatus");
-                        educationModel.Remark =  reader.IsDBNull("ServiceType") ? string.Empty : reader.GetString("Remark");
+                        educationModel.Remark =  reader.IsDBNull("Remark") ? string.Empty : reader.GetString("Remark");
                         educationModel.Rank =  reader.IsDBNull("Rank") ? string.Empty : reader.GetString("Rank");
                         educationModel.Post =  reader.IsDBNull("Post") ? string.Empty : reader.GetString("Post");
                         educationModel.OfficerName =  reader.IsDBNull("OfficerName") ? string.Empty : reader.GetString("OfficerName");

@@ -230,8 +230,10 @@
                 var AppId = "#AppId";
                 var Remark = "#Remark";
                 var UserId =@user.Id;
+                  if($("#StatusStatusDirection").val()!="" && $("#Usersdata").val()!="" && $("#Remark").val()!="")
+                {
                 var d = { "appId": $("#AppIdValue").val(),"status":$("#StatusStatusDirection").val(),"remark":$("#Remark").val(),"userId":$("#Users").val() };
-                alert(JSON.stringify(d));
+              //  alert(JSON.stringify(d));
                 $.ajax({
                 type: "Post",
                 contentType: "application/x-www-form-urlencoded",
@@ -251,6 +253,11 @@
                 error: function (result) {
                 },
             });
+            }
+            else
+            {
+                alert("Plesae select Direction , Users and enter remark");
+            }
 
             }
 

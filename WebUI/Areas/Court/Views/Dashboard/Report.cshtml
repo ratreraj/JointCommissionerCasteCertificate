@@ -1,0 +1,161 @@
+﻿@model IEnumerable<DomainModel.EducationModel>
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<h1>Report</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationRecivedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Village)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Taluka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.District)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CasteCertificateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CasteCertificateNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CasteCertificateIssuingAuthority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurpuseType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OfficerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourtConttept)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tribe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ComplainerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RespondentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Evidence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationRecivedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Village)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Taluka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CasteCertificateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CasteCertificateNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CasteCertificateIssuingAuthority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurpuseType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rank)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfficerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourtConttept)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tribe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComplainerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RespondentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Evidence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -17,14 +17,15 @@ namespace Services.Interfaces
         public string GetApplicationId();
 
         public IEnumerable<EducationModel> GetEducationDetails(int userid, string status);
+        public Task<IEnumerable<EducationReport>> GetEducationExport();
 
         public EducationModel GetEducationById(string ApplicationId);
 
         public EducationModel GetEducationByAppId(string ApplicationId);
 
-        
 
-        public int UpdateApplicationStatus(ApplicationStatus model,int userId);
+
+        public int UpdateApplicationStatus(ApplicationStatus model, int userId);
 
         IEnumerable<ActionStatusModel> GetActionStatus(int roleId, string Status);
         IEnumerable<UsersModel> GetUsers(string sttaus, string nextststus);
